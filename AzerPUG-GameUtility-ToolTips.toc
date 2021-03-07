@@ -1,0 +1,9 @@
+## Interface: 90002
+## Title: |cFF00FFFFAZP|r |cFFFF00FFGU|r |cFFFFFF00ToolTips|r
+## Author: Tex & AzerPUG Gaming Community (www.azerpug.com/discord)
+## Dependencies: AzerPUG-GameUtility-Core 
+## Notes: Utility for the Game!
+## Version: SL 9.0.2 (For actual addon version, check main.lua)
+
+dataTables.lua
+main.lua
