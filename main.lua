@@ -1,8 +1,15 @@
 local GlobalAddonName, ValorToolTips = ...
 
 local ValorToolTipsVersion = 5
-
+local EventFrame
+local HaveShowedUpdateNotification = false
 function ValorToolTips:OnLoad()
+    EventFrame = CreateFrame("FRAME", nil)
+    EventFrame:RegisterEvent("CHAT_MSG_ADDON")
+    EventFrame:SetScript("OnEvent", ValorToolTips.OnEvent)
+    C_ChatInfo.RegisterAddonMessagePrefix("AZPTT_VERSION")
+    ValorToolTips:ShareVersion()
+
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
 
@@ -25,5 +32,30 @@ function ValorToolTips:OnLoad()
         end
     end)
 end
+
+function ValorToolTips:ShareVersion()
+    C_ChatInfo.SendAddonMessage("AZPTT_VERSION", ValorToolTipsVersion ,"PARTY", 1)
+end
+
+function ValorToolTips:ReceiveVersion( version )
+    if version > ValorToolTipsVersion then
+        if (not HaveShowedUpdateNotification) then
+            HaveShowedUpdateNotification = true
+            print("A new version of AzerPUG's Valor Tooltips is available.")
+        end
+    end
+end
+
+function ValorToolTips:OnEvent(event, ...)
+    if event == "CHAT_MSG_ADDON" then
+        local prefix, payload, _, sender = ...
+        
+        if prefix == "AZPTT_VERSION" then
+            ValorToolTips:ReceiveVersion(tonumber(payload))
+        end
+    end
+end
+
+
 
 ValorToolTips:OnLoad()
