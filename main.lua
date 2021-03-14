@@ -1,6 +1,6 @@
 local GlobalAddonName, ValorToolTips = ...
 
-local ValorToolTipsVersion = 5
+local ValorToolTipsVersion = 6
 
 function ValorToolTips:OnLoad()
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
@@ -14,12 +14,16 @@ function ValorToolTips:OnLoad()
             local cur, max = text:match(searchValue .. "(%d+)/(%d+)")
             if cur ~= nil then
                 if cur ~= max then
-                    local _, itemLink = GameTooltip:GetItem()
-                    local itemEquipLocation = C_Item.GetItemInventoryTypeByID(itemLink)
-                    local price = ValorToolTips.ValorData.ItemEquipLocation[itemEquipLocation]
-                    local levelsToMax = max - cur
-                    local priceToMax = levelsToMax * price
-                    left:SetText(text .. string.format("  |cFF00FFFF%d/%d|r", price, priceToMax))
+                    if max == "12" then 
+                        local _, itemLink = GameTooltip:GetItem()
+                        local itemEquipLocation = C_Item.GetItemInventoryTypeByID(itemLink)
+                        local price = ValorToolTips.ValorData.ItemEquipLocation[itemEquipLocation]
+                        local levelsToMax = max - cur
+                        local priceToMax = levelsToMax * price
+                        left:SetText(text .. string.format("  |cFF00FFFF%d/%d|r", price, priceToMax))
+                    else
+                        left:SetText(text .. "  |cFF00FFFFcoming soon|r")
+                    end
                 end
             end
         end
