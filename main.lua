@@ -1,6 +1,6 @@
 local GlobalAddonName, ValorToolTips = ...
 
-local ValorToolTipsVersion = 6
+local ValorToolTipsVersion = 7
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
 
