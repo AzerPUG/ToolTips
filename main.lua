@@ -1,6 +1,6 @@
 local GlobalAddonName, ValorToolTips = ...
 
-local ValorToolTipsVersion = 7
+local ValorToolTipsVersion = 8
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
 
@@ -49,6 +49,7 @@ function ValorToolTips:OnLoad()
 
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
+    local valorIcon = "\124T463447:12\124t"
 
     GameTooltip:HookScript("OnTooltipSetItem", function (...) 
         local ttname = GameTooltip:GetName()
@@ -64,9 +65,10 @@ function ValorToolTips:OnLoad()
                         local price = ValorToolTips.ValorData.ItemEquipLocation[itemEquipLocation]
                         local levelsToMax = max - cur
                         local priceToMax = levelsToMax * price
-                        left:SetText(text .. string.format("  |cFF00FFFF%d/%d|r", price, priceToMax))
+                        --left:SetText(text .. string.format("  |cFF00FFFF(%d/%d %d)|r", price, priceToMax, valorIcon))
+                        left:SetText(text .. "  |cFF00FFFF(" .. price .. valorIcon .. " /" .. priceToMax .. valorIcon .. ")|r")
                     else
-                        left:SetText(text .. "  |cFF00FFFFcoming soon|r")
+                        left:SetText(text .. "  |cFF00FFFF(Coming Soon!)|r")
                     end
                 end
             end
