@@ -65,7 +65,6 @@ function ValorToolTips:OnLoad()
                         local price = ValorToolTips.ValorData.ItemEquipLocation[itemEquipLocation]
                         local levelsToMax = max - cur
                         local priceToMax = levelsToMax * price
-                        --left:SetText(text .. string.format("  |cFF00FFFF(%d/%d %d)|r", price, priceToMax, valorIcon))
                         left:SetText(text .. "  |cFF00FFFF(" .. price .. valorIcon .. " /" .. priceToMax .. valorIcon .. ")|r")
                     else
                         left:SetText(text .. "  |cFF00FFFF(Coming Soon!)|r")
