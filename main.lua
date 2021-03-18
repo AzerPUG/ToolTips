@@ -7,6 +7,7 @@ local HaveShowedUpdateNotification = false
 function ValorToolTips:OnLoad()
     EventFrame = CreateFrame("FRAME", nil)
     EventFrame:RegisterEvent("CHAT_MSG_ADDON")
+    EventFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
     EventFrame:SetScript("OnEvent", ValorToolTips.OnEvent)
     C_ChatInfo.RegisterAddonMessagePrefix("AZPTT_VERSION")
 
@@ -174,6 +175,8 @@ function ValorToolTips:OnEvent(event, ...)
         if prefix == "AZPTT_VERSION" then
             ValorToolTips:ReceiveVersion(tonumber(payload))
         end
+    elseif event == "GROUP_ROSTER_UPDATE" then
+        ValorToolTips:ShareVersion()
     end
 end
 
