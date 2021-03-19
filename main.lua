@@ -1,14 +1,15 @@
-local GlobalAddonName, ValorToolTips = ...
+local GlobalAddonName, AZPToolTips = ...
 
 local ValorToolTipsVersion = 10
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
+local ValorItems = AZPToolTips.ValorItems
 
-function ValorToolTips:OnLoad()
+function AZPToolTips:OnLoad()
     EventFrame = CreateFrame("FRAME", nil)
     EventFrame:RegisterEvent("CHAT_MSG_ADDON")
     EventFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
-    EventFrame:SetScript("OnEvent", ValorToolTips.OnEvent)
+    EventFrame:SetScript("OnEvent", AZPToolTips.OnEvent)
     C_ChatInfo.RegisterAddonMessagePrefix("AZPTT_VERSION")
 
     UpdateFrame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
@@ -46,7 +47,7 @@ function ValorToolTips:OnLoad()
     UpdateFrameCloseButton:SetPoint("TOPRIGHT", UpdateFrame, "TOPRIGHT", 2, 2)
     UpdateFrameCloseButton:SetScript("OnClick", function() UpdateFrame:Hide() end )
 
-    ValorToolTips:ShareVersion()
+    AZPToolTips:ShareVersion()
 
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
@@ -57,16 +58,25 @@ function ValorToolTips:OnLoad()
         for i = 1, GameTooltip:NumLines() do
             local left = _G[ttname .. "TextLeft" .. i]
             local text = left:GetText()
+            local cost
             local cur, max = text:match(searchValue .. "(%d+)/(%d+)")
             if cur ~= nil then
                 if cur ~= max then
                     if max == "12" then 
                         local _, itemLink = GameTooltip:GetItem()
-                        local itemEquipLocation = C_Item.GetItemInventoryTypeByID(itemLink)
-                        local price = ValorToolTips.ValorData.ItemEquipLocation[itemEquipLocation]
+                        local itemString = itemLink:gsub("|", "-")
+                        local v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
+                        local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
+                        for i = 1, tonumber(NumBonusIDs) do
+                            if ValorItems[bonusIDList[i]] ~= nil then
+                                cost = ValorItems[bonusIDList[i]][1]
+                                cur = ValorItems[bonusIDList[i]][2]
+                                max = ValorItems[bonusIDList[i]][3]
+                            end
+                        end
                         local levelsToMax = max - cur
-                        local priceToMax = levelsToMax * price
-                        left:SetText(text .. "  |cFF00FFFF(" .. price .. valorIcon .. " /" .. priceToMax .. valorIcon .. ")|r")
+                        local priceToMax = levelsToMax * cost
+                        left:SetText(text .. "  |cFF00FFFF(" .. cost .. valorIcon .. " /" .. priceToMax .. valorIcon .. ")|r")
                     else
                         left:SetText(text .. "  |cFF00FFFF(Coming Soon!)|r")
                     end
@@ -139,7 +149,7 @@ function DelayedExecution(delayTime, delayedFunction)
     frame:Show()
 end
 
-function ValorToolTips:ShareVersion()
+function AZPToolTips:ShareVersion()
     DelayedExecution(10, function() 
         if IsInRaid() then
             C_ChatInfo.SendAddonMessage("AZPTT_VERSION", ValorToolTipsVersion ,"RAID", 1)
@@ -153,7 +163,7 @@ function ValorToolTips:ShareVersion()
     end)
 end
 
-function ValorToolTips:ReceiveVersion(version)
+function AZPToolTips:ReceiveVersion(version)
     if version > ValorToolTipsVersion then
         if (not HaveShowedUpdateNotification) then
             HaveShowedUpdateNotification = true
@@ -169,15 +179,15 @@ function ValorToolTips:ReceiveVersion(version)
     end
 end
 
-function ValorToolTips:OnEvent(event, ...)
+function AZPToolTips:OnEvent(event, ...)
     if event == "CHAT_MSG_ADDON" then
         local prefix, payload, _, sender = ...
         if prefix == "AZPTT_VERSION" then
-            ValorToolTips:ReceiveVersion(tonumber(payload))
+            AZPToolTips:ReceiveVersion(tonumber(payload))
         end
     elseif event == "GROUP_ROSTER_UPDATE" then
         ValorToolTips:ShareVersion()
     end
 end
 
-ValorToolTips:OnLoad()
+AZPToolTips:OnLoad()
