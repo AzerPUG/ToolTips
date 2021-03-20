@@ -68,10 +68,9 @@ function AZPToolTips:OnLoad()
                         local v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
                         local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
                         for i = 1, tonumber(NumBonusIDs) do
-                            if ValorItems[bonusIDList[i]] ~= nil then
-                                cost = ValorItems[bonusIDList[i]][1]
-                                cur = ValorItems[bonusIDList[i]][2]
-                                max = ValorItems[bonusIDList[i]][3]
+                            local ValorItem = ValorItems[bonusIDList[i]]
+                            if ValorItem ~= nil then
+                                cost, cur, max = unpack(ValorItem)
                             end
                         end
                         local levelsToMax = max - cur
