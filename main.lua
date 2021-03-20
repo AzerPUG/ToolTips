@@ -186,7 +186,7 @@ function AZPToolTips:OnEvent(event, ...)
             AZPToolTips:ReceiveVersion(tonumber(payload))
         end
     elseif event == "GROUP_ROSTER_UPDATE" then
-        ValorToolTips:ShareVersion()
+        AZPToolTips:ShareVersion()
     end
 end
 
