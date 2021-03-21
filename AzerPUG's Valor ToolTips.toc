@@ -2,9 +2,20 @@
 ## Title: |cFF00FFFFAzerPUG's|r |cFFFF00FFToolTips|r
 ## Author: Tex & AzerPUG Gaming Community (www.azerpug.com/discord)
 ## Notes: AzerPUG's ToolTips adds useful information to the tooltip of specific items.
+
 ## Notes-frFR: AzerPUG's ToolTips ajoute des informations utiles sur les infobulles de certains objets spécifiques.
 ## Notes-deDE: AzerPUG's ToolTips fügt dem Tooltip bestimmter Gegenstände nützliche Informationen hinzu.
+## Notes-enGB: AzerPUG's ToolTips adds useful information to the tooltip of specific items.
+## Notes-enUS: AzerPUG's ToolTips adds useful information to the tooltip of specific items.
+## Notes-itIT: I suggerimenti di AzerPUG aggiungono informazioni utili al suggerimento di elementi specifici.
+## Notes-koKR: AzerPUG의 도구 설명은 특정 항목의 도구 설명에 유용한 정보를 추가합니다.
+## Notes-zhCN: AzerPUG的工具提示将有用的信息添加到特定项目的工具提示中。
+## Notes-zhTW: AzerPUG的工具提示將有用的信息添加到特定項目的工具提示中。
 ## Notes-ruRU: Всплывающие подсказки AzerPUG добавляют полезную информацию к подсказкам определенных элементов.
+## Notes-esES: La información sobre herramientas de AzerPUG agrega información útil a la información sobre herramientas de elementos específicos.
+## Notes-esMX: La información sobre herramientas de AzerPUG agrega información útil a la información sobre herramientas de elementos específicos.
+## Notes-ptBR: As dicas de ferramentas do AzerPUG adicionam informações úteis às dicas de itens específicos.
+
 ## Version: SL 9.0.5 (For actual addon version, check main.lua)
 ## SavedVariables: AZPPopUpMessageShown
 
