@@ -3,7 +3,7 @@ local GlobalAddonName, AZPToolTips = ...
 local ValorToolTipsVersion = 10
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
-local ValorItems = AZPToolTips.ValorItems
+local ItemUpgrades = AZPToolTips.ItemUpgrades
 
 function AZPToolTips:OnLoad()
     EventFrame = CreateFrame("FRAME", nil)
@@ -51,7 +51,6 @@ function AZPToolTips:OnLoad()
 
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
-    local valorIcon = "\124T463447:12\124t"
 
     GameTooltip:HookScript("OnTooltipSetItem", function (...) 
         local ttname = GameTooltip:GetName()
@@ -60,22 +59,24 @@ function AZPToolTips:OnLoad()
             local text = left:GetText()
             local cost
             local cur, max = text:match(searchValue .. "(%d+)/(%d+)")
+            local currency
             if cur ~= nil then
                 if cur ~= max then
-                    if max == "12" then 
+
                         local _, itemLink = GameTooltip:GetItem()
                         local itemString = itemLink:gsub("|", "-")
                         local v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
                         local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
                         for i = 1, tonumber(NumBonusIDs) do
-                            local ValorItem = ValorItems[bonusIDList[i]]
+                            local ValorItem = ItemUpgrades[bonusIDList[i]]
                             if ValorItem ~= nil then
-                                cost, cur, max = unpack(ValorItem)
+                            cost, cur, max, currency = unpack(ValorItem)
                             end
                         end
                         local levelsToMax = max - cur
                         local priceToMax = levelsToMax * cost
-                        left:SetText(text .. "  |cFF00FFFF(" .. cost .. valorIcon .. " /" .. priceToMax .. valorIcon .. ")|r")
+                    if cost ~= nil then
+                        left:SetText(text .. "  |cFF00FFFF(" .. cost .. currency.Icon .. " /" .. priceToMax .. currency.Icon .. ")|r")
                     else
                         left:SetText(text .. "  |cFF00FFFF(Coming Soon!)|r")
                     end
