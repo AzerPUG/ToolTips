@@ -17,7 +17,6 @@
 ## Notes-ptBR: As dicas de ferramentas do AzerPUG adicionam informações úteis às dicas de itens específicos.
 
 ## Version: SL 9.0.5 (For actual addon version, check main.lua)
-## SavedVariables: AZPPopUpMessageShown
 
 dataTables.lua
 main.lua
