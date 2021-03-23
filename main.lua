@@ -1,6 +1,6 @@
 local GlobalAddonName, AZPToolTips = ...
 
-local ValorToolTipsVersion = 14
+local ValorToolTipsVersion = 15
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
 local ItemUpgrades = AZPToolTips.ItemUpgrades
