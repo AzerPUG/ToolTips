@@ -58,7 +58,7 @@ function AZPToolTips:OnLoad()
             local left = _G[ttname .. "TextLeft" .. i]
             local text = left:GetText()
             if text:find(searchValue) then
-                local cost, cur, max, currency
+                local cost, cur, max, currency, nextUpgrade, priceToMax
                 local _, itemLink = GameTooltip:GetItem()
                 local itemString = itemLink:gsub("|", "-")
 
@@ -67,28 +67,41 @@ function AZPToolTips:OnLoad()
                 for j = 1, tonumber(NumBonusIDs) do
                     local ValorItem = ItemUpgrades[bonusIDList[j]]
                     if ValorItem ~= nil then
-                        cost, cur, max, currency = unpack(ValorItem)
+                        cost, _, _, currency, _ = unpack(ValorItem)
+                        priceToMax = AZPToolTips:StackUpgradeCosts(bonusIDList[j])
                     end
                 end
+                
                 local displayIcon = ""
                 if currency ~= nil then
                     displayIcon = currency.Icon
                 end
-                if max == 12 then
-                    local levelsToMax = max - cur
-                    local priceToMax = levelsToMax * cost
-                    if cost ~= nil then
-                        left:SetText(text .. "  |cFF00FFFF(" .. cost .. displayIcon .. " / " .. priceToMax .. displayIcon .. ")|r")
-                    end
-                elseif max == 7 and cur ~= max then
-                    left:SetText(text .. "  |cFF00FFFF(" .. cost .. displayIcon .. ")|r")
-                elseif max == nil then
-                    left:SetText(text .. "  |cFF00FFFF(Coming Soon!)|r")
+                
+                if cost ~= nil then
+                    left:SetText(text .. "  |cFF00FFFF(" .. cost .. displayIcon .. " / " .. priceToMax .. displayIcon .. ")|r")
                 end
+                
             end
         end
     end)
 end
+
+function AZPToolTips:StackUpgradeCosts(startID)
+    local totalCost = 0
+    local currentBonusID = startID
+
+    while currentBonusID ~= nil do
+        local cost, _cur, _max, _currency, nextUpgrade = unpack(ItemUpgrades[currentBonusID])
+        currentBonusID = nextUpgrade
+
+        if cost ~= nil then
+            totalCost = totalCost + cost
+        end
+    end
+
+    return totalCost
+end
+
 
 function DelayedExecution(delayTime, delayedFunction)
     local frame = CreateFrame("Frame")
