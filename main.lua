@@ -67,20 +67,21 @@ function AZPToolTips:OnLoad()
                 for j = 1, tonumber(NumBonusIDs) do
                     local ValorItem = ItemUpgrades[bonusIDList[j]]
                     if ValorItem ~= nil then
-                        cost, _, _, currency, _ = unpack(ValorItem)
+                        cost, cur, max, currency, _ = unpack(ValorItem)
                         priceToMax = AZPToolTips:StackUpgradeCosts(bonusIDList[j])
                     end
                 end
-                
+
                 local displayIcon = ""
                 if currency ~= nil then
                     displayIcon = currency.Icon
                 end
-                
+
                 if cost ~= nil then
                     left:SetText(text .. "  |cFF00FFFF(" .. cost .. displayIcon .. " / " .. priceToMax .. displayIcon .. ")|r")
+                elseif max == nil then
+                    left:SetText(text .. "  |cFF00FFFF(Coming Soon!)|r")
                 end
-                
             end
         end
     end)
