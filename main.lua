@@ -1,6 +1,6 @@
 local GlobalAddonName, AZPToolTips = ...
 
-local ToolTipsVersion = 17
+local ToolTipsVersion = 18
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
 local ItemUpgrades = AZPToolTips.ItemUpgrades
@@ -129,7 +129,7 @@ function AZPToolTips:StackUpgradeCosts(startID)
     while currentBonusID ~= nil do
         local cost, _cur, _max, _currency, nextUpgrade = unpack(ItemUpgrades[currentBonusID])
         currentBonusID = nextUpgrade
-
+        
         if cost ~= nil then
             totalCost = totalCost + cost
         end
