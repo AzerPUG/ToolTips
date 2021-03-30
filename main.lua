@@ -98,11 +98,13 @@ function AZPToolTips:OnLoad()
 
                 local v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
                 local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
-                for j = 1, tonumber(NumBonusIDs) do
-                    local CurrentItem = ItemUpgrades[bonusIDList[j]]
-                    if CurrentItem ~= nil then
-                        cost, cur, max, currency, _ = unpack(CurrentItem)
-                        priceToMax = AZPToolTips:StackUpgradeCosts(bonusIDList[j])
+                if NumBonusIDs ~= nil and tonumber(NumBonusIDs) > 0 then
+                    for j = 1, tonumber(NumBonusIDs) do
+                        local CurrentItem = ItemUpgrades[bonusIDList[j]]
+                        if CurrentItem ~= nil then
+                            cost, cur, max, currency, _ = unpack(CurrentItem)
+                            priceToMax = AZPToolTips:StackUpgradeCosts(bonusIDList[j])
+                        end
                     end
                 end
 
@@ -115,7 +117,7 @@ function AZPToolTips:OnLoad()
                 if cost ~= nil then
                     left:SetText(text .. "  |cFF00FFFF(" .. cost .. displayIcon .. " " .. separator .. " " .. priceToMax .. displayIcon .. ")|r")
                 elseif max == nil then
-                    left:SetText(text .. "  |cFF00FFFF(Coming Soon!)|r")
+                    left:SetText(text .. "  |cFF00FFFF(Coming Soon™!)|r")
                 end
             end
         end
