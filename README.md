@@ -18,5 +18,5 @@
 If you care for any of our AddOns, please consider downloading them through either of the following two methods.<br />
 These two download methods are the only ones that actually support the authors that created them and their hard work!
 
-CurseForge Website: ***CurseForge Link Here!***<br />
+CurseForge Website: https://www.curseforge.com/wow/addons/azerpugs-valor-tooltips<br />
 CurseForge Application: https://curseforge.overwolf.com/
