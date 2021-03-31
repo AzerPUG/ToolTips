@@ -21,6 +21,7 @@ AzerPUG's ToolTips (slightly) changes the ToolTip of upgradable items to give th
 - Covenant Items (Anima Upgrades). (Coming Soon!)<br />
 - Legendary Items (Soul Ash Upgrades). (Coming Soon!)<br />
 - Heirloom Items (Several Upgrade Methods). (Coming Soon!)<br />
+- <!-- end of the list -->
 <br />
 <br />
 <br />
