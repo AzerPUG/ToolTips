@@ -15,12 +15,12 @@
 <br />
 # Description and Features
 AzerPUG's ToolTips (slightly) changes the ToolTip of upgradable items to give the user more information that is otherwise not directly present in the ToolTips. Showing the next and max upgrade requirements with the specific icon for that item, right there in the ToolTip, without the need to go to an upgrade vendor or google the prices.<br />
-= Mythic Plus Items (Valor Upgrades).<br />
-= PvP Honor Items (Honor Upgrades).<br />
-= PvP conquest Items (Honor Upgrades).<br />
-= Covenant Items (Anima Upgrades). (Coming Soon!)<br />
-= Legendary Items (Soul Ash Upgrades). (Coming Soon!)<br />
-= Heirloom Items (Several Upgrade Methods). (Coming Soon!)<br />
+- Mythic Plus Items (Valor Upgrades).<br />
+- PvP Honor Items (Honor Upgrades).<br />
+- PvP conquest Items (Honor Upgrades).<br />
+- Covenant Items (Anima Upgrades). (Coming Soon!)<br />
+- Legendary Items (Soul Ash Upgrades). (Coming Soon!)<br />
+- Heirloom Items (Several Upgrade Methods). (Coming Soon!)<br />
 <br />
 <br />
 <br />
