@@ -42,5 +42,5 @@ You can comission us to do some programming for you through Fiverr here: https:/
 If you care for any of our AddOns, please consider downloading them through either of the following two methods.<br />
 These two download methods are the only ones that actually support the authors that created them and their hard work!
 
-CurseForge Website: https://www.curseforge.com/wow/addons/azerpugs-valor-tooltips<br />
+CurseForge Website: https://www.curseforge.com/wow/addons/azerpugs-valor-tooltips/files<br />
 CurseForge Application: https://curseforge.overwolf.com/
