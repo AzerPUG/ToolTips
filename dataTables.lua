@@ -7,11 +7,11 @@ AZPToolTips.Currencies = {
     ["Honor"] =
     {
         ["Icon"] = "\124T1455894:12\124t"
-    },
+    }
 }
 
 AZPToolTips.ItemUpgrades =
-{   -- [BonusID] = {Cost, CurRank, MaxRank, icon}
+{   -- Valor Items
     [7418] = {250,  1, 12, AZPToolTips.Currencies.Valor, 7419},
     [7419] = {250,  2, 12, AZPToolTips.Currencies.Valor, 7420},
     [7420] = {250,  3, 12, AZPToolTips.Currencies.Valor, 7421},
@@ -96,6 +96,7 @@ AZPToolTips.ItemUpgrades =
     [7413] = {1000, 10, 12, AZPToolTips.Currencies.Valor, 7414},
     [7414] = {1000, 11, 12, AZPToolTips.Currencies.Valor, 7415},
     [7415] = {nil, 12, 12, AZPToolTips.Currencies.Valor, nil},
+
     -- Honor Items
     [6793] = {300, 1, 7, AZPToolTips.Currencies.Honor, 6792},
     [6792] = {375, 2, 7, AZPToolTips.Currencies.Honor, 6791},
@@ -146,6 +147,7 @@ AZPToolTips.ItemUpgrades =
     [6782] = {1100, 5, 7, AZPToolTips.Currencies.Honor, 6781},
     [6781] = {1200, 6, 7, AZPToolTips.Currencies.Honor, 6780},
     [6780] = {nil, 7, 7, AZPToolTips.Currencies.Honor ,nil},
+
     -- Conquest items
     [6617] = {475, 1, 5, AZPToolTips.Currencies.Honor, 6618},
     [6618] = {950, 2, 5, AZPToolTips.Currencies.Honor, 6619},
@@ -185,7 +187,14 @@ AZPToolTips.ItemUpgrades =
     [7227] = {3900, 3, 6, AZPToolTips.Currencies.Honor, 7228},
     [7228] = {6000, 4, 6, AZPToolTips.Currencies.Honor, 7229},
     [7229] = {8400, 5, 6, AZPToolTips.Currencies.Honor, 7230},
-    [7230] = {nil, 6, 6, AZPToolTips.Currencies.Honor, nil}
+    [7230] = {nil, 6, 6, AZPToolTips.Currencies.Honor, nil},
 
-
+    -- Anima Items
+    [7195] = {50, 1, 7, nil, 7196},
+    [7196] = {100, 2, 7, nil, 7197},
+    [7197] = {150, 3, 7, nil, 7198},
+    [7198] = {200, 4, 7, nil, 7199},
+    [7199] = {250, 5, 7, nil, 7200},
+    [7200] = {300, 6, 7, nil, 7201},
+    [7201] = {nil, 7, 7, nil, nil},
 }
