@@ -17,8 +17,8 @@ AzerPUG's ToolTips (slightly) changes the ToolTip of upgradable items to give th
 
 - Mythic Plus Items (Valor Upgrades).
 - PvP Honor Items (Honor Upgrades).
-- PvP conquest Items (Honor Upgrades).
-- Covenant Items (Anima Upgrades). (Coming Soon!)
+- PvP Conquest Items (Honor Upgrades).
+- Covenant Items (Anima Upgrades).
 - Legendary Items (Soul Ash Upgrades). (Coming Soon!)
 - Heirloom Items (Several Upgrade Methods). (Coming Soon!)
 
