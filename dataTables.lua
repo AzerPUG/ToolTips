@@ -7,7 +7,11 @@ AZPToolTips.Currencies = {
     ["Honor"] =
     {
         ["Icon"] = "\124T1455894:12\124t"
-    }
+    },
+    ["Anima"] =
+    {
+        ["Icon"] = "\124T3528288:12\124t"
+    },
 }
 
 AZPToolTips.ItemUpgrades =
@@ -190,11 +194,11 @@ AZPToolTips.ItemUpgrades =
     [7230] = {nil, 6, 6, AZPToolTips.Currencies.Honor, nil},
 
     -- Anima Items
-    [7195] = {50, 1, 7, nil, 7196},
-    [7196] = {100, 2, 7, nil, 7197},
-    [7197] = {150, 3, 7, nil, 7198},
-    [7198] = {200, 4, 7, nil, 7199},
-    [7199] = {250, 5, 7, nil, 7200},
-    [7200] = {300, 6, 7, nil, 7201},
-    [7201] = {nil, 7, 7, nil, nil},
+    [7195] = {50, 1, 7, AZPToolTips.Currencies.Anima, 7196},
+    [7196] = {100, 2, 7, AZPToolTips.Currencies.Anima, 7197},
+    [7197] = {150, 3, 7, AZPToolTips.Currencies.Anima, 7198},
+    [7198] = {200, 4, 7, AZPToolTips.Currencies.Anima, 7199},
+    [7199] = {250, 5, 7, AZPToolTips.Currencies.Anima, 7200},
+    [7200] = {300, 6, 7, AZPToolTips.Currencies.Anima, 7201},
+    [7201] = {nil, 7, 7, AZPToolTips.Currencies.Anima, nil},
 }
