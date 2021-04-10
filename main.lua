@@ -32,7 +32,7 @@ function AZP.ToolTips:OnLoadBoth(optionsFrame)
                 local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
                 if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
                     for j = 1, tonumber(NumBonusIDs) do
-                        local CurrentItem = AZP.ItemUpgrades[bonusIDList[j]]
+                        local CurrentItem = AZP.ToolTips.ItemUpgrades[bonusIDList[j]]
                         if CurrentItem ~= nil then
                             cost, cur, max, currency, _ = unpack(CurrentItem)
                             priceToMax = AZP.ToolTips:StackUpgradeCosts(bonusIDList[j])
@@ -64,7 +64,7 @@ function AZP.ToolTips:OnLoadCore(optionsFrame)
 end
 
 function AZP.ToolTips:OnLoadSelf()
-    C_ChatInfo.RegisterAddonMessagePrefix("AZPTT_VERSION")
+    C_ChatInfo.RegisterAddonMessagePrefix("AZPVERSIONS")
 
     EventFrame = CreateFrame("FRAME", nil)
     EventFrame:RegisterEvent("CHAT_MSG_ADDON")
@@ -143,7 +143,7 @@ function AZP.ToolTips:StackUpgradeCosts(startID)
     local currentBonusID = startID
 
     while currentBonusID ~= nil do
-        local cost, _cur, _max, _currency, nextUpgrade = unpack(AZP.ItemUpgrades[currentBonusID])
+        local cost, _cur, _max, _currency, nextUpgrade = unpack(AZP.ToolTips.ItemUpgrades[currentBonusID])
         currentBonusID = nextUpgrade
 
         if cost ~= nil then
@@ -204,13 +204,13 @@ end
 
 function AZP.ToolTips:GetSpecificAddonVersion(versionString, addonWanted)
     local pattern = "|([A-Z]+):([0-9]+)|"
-    local index
-    while index < #payload do
-        local _, endPos = string.find(payload, pattern, index)
-        local addon, version = string.match(payload, pattern, index)
+    local index = 1
+    while index < #versionString do
+        local _, endPos = string.find(versionString, pattern, index)
+        local addon, version = string.match(versionString, pattern, index)
         index = endPos + 1
         if addon == addonWanted then
-            return version
+            return tonumber(version)
         end
     end
 end
