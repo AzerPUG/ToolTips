@@ -1,87 +1,20 @@
-local GlobalAddonName, AZPToolTips = ...
+if AZP == nil then AZP = {} end
+if AZP.VersionControl == nil then AZP.VersionControl = {} end
+if AZP.OnLoad == nil then AZP.OnLoad = {} end
+if AZP.OnEvent == nil then AZP.OnEvent = {} end
+if AZP.OnEvent == nil then AZP.OnEvent = {} end
 
-local ToolTipsVersion = 23
+AZP.VersionControl.ToolTips = 23
+AZP.ToolTips = {}
+if AZP.ToolTips ~= nil then print("NOT NIL!") else print("NIL!") end
+
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
-local ItemUpgrades = AZPToolTips.ItemUpgrades
-local OptionsCorePanel
+local ATTSelfOptionPanel
+local optionHeader = "|cFF00FFFFAzerPUG's ToolTips|r"
 
-function AZPToolTips:OnLoad()
-    EventFrame = CreateFrame("FRAME", nil)
-    EventFrame:RegisterEvent("CHAT_MSG_ADDON")
-    EventFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
-    EventFrame:RegisterEvent("ADDON_LOADED")
-    EventFrame:SetScript("OnEvent", AZPToolTips.OnEvent)
-    C_ChatInfo.RegisterAddonMessagePrefix("AZPTT_VERSION")
-
-    UpdateFrame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
-    UpdateFrame:SetPoint("CENTER", 0, 250)
-    UpdateFrame:SetSize(400, 200)
-    UpdateFrame:SetBackdrop({
-        bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-        edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-        edgeSize = 12,
-        insets = { left = 1, right = 1, top = 1, bottom = 1 },
-    })
-    UpdateFrame:SetBackdropColor(0.25, 0.25, 0.25, 0.80)
-    UpdateFrame.header = UpdateFrame:CreateFontString("UpdateFrame", "ARTWORK", "GameFontNormalHuge")
-    UpdateFrame.header:SetPoint("TOP", 0, -10)
-    UpdateFrame.header:SetText("|cFFFF0000AzerPUG ToolTips is out of date!|r")
-
-    UpdateFrame.text = UpdateFrame:CreateFontString("UpdateFrame", "ARTWORK", "GameFontNormalLarge")
-    UpdateFrame.text:SetPoint("TOP", 0, -40)
-    UpdateFrame.text:SetText("Error!")
-
-    UpdateFrame.discord = CreateFrame("EditBox", nil, UpdateFrame, "InputBoxTemplate")
-    UpdateFrame.discord:SetSize(175, 35)
-    UpdateFrame.discord:SetPoint("TOP", 0, -155)
-    UpdateFrame.discord:SetAutoFocus(false)
-    UpdateFrame.discord:SetFrameStrata("DIALOG")
-    UpdateFrame.discord:SetMaxLetters(100)
-    UpdateFrame.discord:SetFontObject("ChatFontNormal")
-    UpdateFrame.discord:SetText("http://www.azerpug.com/discord")
-
-    UpdateFrame:Hide()
-
-    local UpdateFrameCloseButton = CreateFrame("Button", nil, UpdateFrame, "UIPanelCloseButton")
-    UpdateFrameCloseButton:SetWidth(25)
-    UpdateFrameCloseButton:SetHeight(25)
-    UpdateFrameCloseButton:SetPoint("TOPRIGHT", UpdateFrame, "TOPRIGHT", 2, 2)
-    UpdateFrameCloseButton:SetScript("OnClick", function() UpdateFrame:Hide() end )
-
-    OptionsCorePanel = CreateFrame("FRAME", nil)
-    OptionsCorePanel.name = "|cFF00FFFFAzerPUG's ToolTips|r"
-    InterfaceOptions_AddCategory(OptionsCorePanel)
-
-    OptionsCorePanel.header = OptionsCorePanel:CreateFontString("OptionsCorePanel", "ARTWORK", "GameFontNormalHuge")
-    OptionsCorePanel.header:SetPoint("TOP", 0, -10)
-    OptionsCorePanel.header:SetText("|cFF00FFFFAzerPUG ToolTips Options!|r")
-
-    OptionsCorePanel.footer = OptionsCorePanel:CreateFontString("OptionsCorePanel", "ARTWORK", "GameFontNormalLarge")
-    OptionsCorePanel.footer:SetPoint("TOP", 0, -300)
-    OptionsCorePanel.footer:SetText(
-        "|cFF00FFFFAzerPUG Links:\n" ..
-        "Website: www.azerpug.com\n" ..
-        "Discord: www.azerpug.com/discord\n" ..
-        "Twitch: www.twitch.tv/azerpug\n|r"
-    )
-
-    OptionsCorePanel.SeparatorEdit = CreateFrame("EditBox", nil, OptionsCorePanel, "InputBoxTemplate")
-    OptionsCorePanel.SeparatorEdit:SetSize(100, 25)
-    OptionsCorePanel.SeparatorEdit:SetPoint("TOPLEFT", 100, -100)
-    OptionsCorePanel.SeparatorEdit:SetAutoFocus(false)
-    OptionsCorePanel.SeparatorText = OptionsCorePanel:CreateFontString("OptionsCorePanel", "ARTWORK", "GameFontNormalLarge")
-    OptionsCorePanel.SeparatorText:SetSize(100, 25)
-    OptionsCorePanel.SeparatorText:SetPoint("TOPLEFT", 0, -100)
-    OptionsCorePanel.SeparatorText:SetText("Separator: ")
-    OptionsCorePanel.SeparatorEdit:SetScript("OnEditFocusLost", function() AZPTTSeparator = OptionsCorePanel.SeparatorEdit:GetText() end)
-    OptionsCorePanel.SeparatorEdit:SetFrameStrata("DIALOG")
-    OptionsCorePanel.SeparatorEdit:SetFontObject("ChatFontNormal")
-    OptionsCorePanel.SeparatorEdit:SetMaxLetters(100)
-
-    OptionsCorePanel:Hide()
-
-    AZPToolTips:ShareVersion()
+function AZP.ToolTips:OnLoadBoth(optionsFrame)
+    -- AZP.ToolTips:FillOptionsPanel(optionsFrame)
 
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
@@ -100,10 +33,10 @@ function AZPToolTips:OnLoad()
                 local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
                 if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
                     for j = 1, tonumber(NumBonusIDs) do
-                        local CurrentItem = ItemUpgrades[bonusIDList[j]]
+                        local CurrentItem = AZP.ItemUpgrades[bonusIDList[j]]
                         if CurrentItem ~= nil then
                             cost, cur, max, currency, _ = unpack(CurrentItem)
-                            priceToMax = AZPToolTips:StackUpgradeCosts(bonusIDList[j])
+                            priceToMax = AZP.ToolTips:StackUpgradeCosts(bonusIDList[j])
                         end
                     end
                 end
@@ -124,14 +57,96 @@ function AZPToolTips:OnLoad()
     end)
 end
 
-function AZPToolTips:StackUpgradeCosts(startID)
+function AZP.ToolTips:OnLoadCore(optionsFrame)
+    AZP.ToolTips:OnLoadBoth(optionsFrame)
+    AZP.OptionsPanels:Generic("ToolTips", optionHeader, function (frame)
+        AZP.ToolTips:FillOptionsPanel(frame)
+    end)
+end
+
+function AZP.ToolTips:OnLoadSelf()
+    C_ChatInfo.RegisterAddonMessagePrefix("AZPTT_VERSION")
+
+    EventFrame = CreateFrame("FRAME", nil)
+    EventFrame:RegisterEvent("CHAT_MSG_ADDON")
+    EventFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
+    EventFrame:RegisterEvent("ADDON_LOADED")
+    EventFrame:SetScript("OnEvent", AZP.ToolTips.OnEvent)
+
+    UpdateFrame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+    UpdateFrame:SetPoint("CENTER", 0, 250)
+    UpdateFrame:SetSize(400, 200)
+    UpdateFrame:SetBackdrop({
+        bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+        edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+        edgeSize = 12,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 },
+    })
+    UpdateFrame:SetBackdropColor(0.25, 0.25, 0.25, 0.80)
+    UpdateFrame.header = UpdateFrame:CreateFontString("UpdateFrame", "ARTWORK", "GameFontNormalHuge")
+    UpdateFrame.header:SetPoint("TOP", 0, -10)
+    UpdateFrame.header:SetText("|cFFFF0000AzerPUG ToolTips is out of date!|r")
+
+    UpdateFrame.text = UpdateFrame:CreateFontString("UpdateFrame", "ARTWORK", "GameFontNormalLarge")
+    UpdateFrame.text:SetPoint("TOP", 0, -40)
+    UpdateFrame.text:SetText("Error!")
+
+    UpdateFrame:Hide()
+
+    local UpdateFrameCloseButton = CreateFrame("Button", nil, UpdateFrame, "UIPanelCloseButton")
+    UpdateFrameCloseButton:SetWidth(25)
+    UpdateFrameCloseButton:SetHeight(25)
+    UpdateFrameCloseButton:SetPoint("TOPRIGHT", UpdateFrame, "TOPRIGHT", 2, 2)
+    UpdateFrameCloseButton:SetScript("OnClick", function() UpdateFrame:Hide() end )
+
+    ATTSelfOptionPanel = CreateFrame("FRAME", nil)
+    ATTSelfOptionPanel.name = optionHeader
+    InterfaceOptions_AddCategory(ATTSelfOptionPanel)
+    ATTSelfOptionPanel.header = ATTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+    ATTSelfOptionPanel.header:SetPoint("TOP", 0, -10)
+    ATTSelfOptionPanel.header:SetText("|cFF00FFFFAzerPUG ToolTips Options!|r")
+
+    ATTSelfOptionPanel.footer = ATTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    ATTSelfOptionPanel.footer:SetPoint("TOP", 0, -300)
+    ATTSelfOptionPanel.footer:SetText(
+        "|cFF00FFFFAzerPUG Links:\n" ..
+        "Website: www.azerpug.com\n" ..
+        "Discord: www.azerpug.com/discord\n" ..
+        "Twitch: www.twitch.tv/azerpug\n|r"
+    )
+    AZP.ToolTips:FillOptionsPanel(ATTSelfOptionPanel)
+    AZP.ToolTips:OnLoadBoth(ATTSelfOptionPanel)
+    AZP.ToolTips:ShareVersion()
+end
+
+function AZP.ToolTips:FillOptionsPanel(frameToFill)
+    frameToFill.SeparatorEdit = CreateFrame("EditBox", nil, frameToFill, "InputBoxTemplate")
+    frameToFill.SeparatorEdit:SetSize(100, 25)
+    frameToFill.SeparatorEdit:SetPoint("TOPLEFT", 100, -100)
+    frameToFill.SeparatorEdit:SetAutoFocus(false)
+    frameToFill.SeparatorEdit:SetScript("OnShow", function ()
+        frameToFill.SeparatorEdit:SetText(AZPTTSeparator)
+    end)
+    frameToFill.SeparatorText = frameToFill:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    frameToFill.SeparatorText:SetSize(100, 25)
+    frameToFill.SeparatorText:SetPoint("TOPLEFT", 0, -100)
+    frameToFill.SeparatorText:SetText("Separator: ")
+    frameToFill.SeparatorEdit:SetScript("OnEditFocusLost", function() AZPTTSeparator = frameToFill.SeparatorEdit:GetText() end)
+    frameToFill.SeparatorEdit:SetFrameStrata("DIALOG")
+    frameToFill.SeparatorEdit:SetFontObject("ChatFontNormal")
+    frameToFill.SeparatorEdit:SetMaxLetters(100)
+
+    frameToFill:Hide()
+end
+
+function AZP.ToolTips:StackUpgradeCosts(startID)
     local totalCost = 0
     local currentBonusID = startID
 
     while currentBonusID ~= nil do
-        local cost, _cur, _max, _currency, nextUpgrade = unpack(ItemUpgrades[currentBonusID])
+        local cost, _cur, _max, _currency, nextUpgrade = unpack(AZP.ItemUpgrades[currentBonusID])
         currentBonusID = nextUpgrade
-        
+
         if cost ~= nil then
             totalCost = totalCost + cost
         end
@@ -139,7 +154,6 @@ function AZPToolTips:StackUpgradeCosts(startID)
 
     return totalCost
 end
-
 
 function DelayedExecution(delayTime, delayedFunction)
     local frame = CreateFrame("Frame")
@@ -156,22 +170,22 @@ function DelayedExecution(delayTime, delayedFunction)
     frame:Show()
 end
 
-function AZPToolTips:ShareVersion()
+function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW Function.
     DelayedExecution(10, function() 
         if IsInRaid() then
-            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", ToolTipsVersion ,"RAID", 1)
+            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", AZP.VersionControl.ToolTips ,"RAID", 1)
         end
         if IsInGroup() then
-            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", ToolTipsVersion ,"PARTY", 1)
+            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", AZP.VersionControl.ToolTips ,"PARTY", 1)
         end
         if IsInGuild() then
-            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", ToolTipsVersion ,"GUILD", 1)
+            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", AZP.VersionControl.ToolTips ,"GUILD", 1)
         end
     end)
 end
 
-function AZPToolTips:ReceiveVersion(version)
-    if version > ToolTipsVersion then
+function AZP.ToolTips:ReceiveVersion(version)
+    if version > AZP.VersionControl.ToolTips then
         if (not HaveShowedUpdateNotification) then
             HaveShowedUpdateNotification = true
             UpdateFrame:Show()
@@ -179,32 +193,36 @@ function AZPToolTips:ReceiveVersion(version)
                 "Please download the new version through the CurseForge app.\n" ..
                 "Or use the CurseForge website to download it manually!\n\n" .. 
                 "Newer Version: v" .. version .. "\n" .. 
-                "Your version: v" .. ToolTipsVersion .. "\n\n\n" ..
-                "Discord:"
+                "Your version: v" .. AZP.VersionControl.ToolTips
             )
         end
     end
 end
 
-function AZPToolTips:OnEvent(event, ...)
+function AZP.ToolTips:OnEvent(event, ...)
     if event == "CHAT_MSG_ADDON" then
         local prefix, payload, _, sender = ...
         if prefix == "AZPTT_VERSION" then
-            AZPToolTips:ReceiveVersion(tonumber(payload))
+            AZP.ToolTips:ReceiveVersion(tonumber(payload))
         end
     elseif event == "GROUP_ROSTER_UPDATE" then
-        AZPToolTips:ShareVersion()
+        AZP.ToolTips:ShareVersion()
     elseif event == "ADDON_LOADED" then
         local addonName = ...
         if addonName == "AzerPUG's ToolTips" then
             if AZPTTSeparator == nil then
                 AZPTTSeparator = "/"
             end
-            OptionsCorePanel:SetScript("OnShow", function()
-                OptionsCorePanel.SeparatorEdit:SetText(AZPTTSeparator)
-            end)
+            -- ATTSelfOptionPanel:SetScript("OnShow", function()
+            --     ATTSelfOptionPanel.SeparatorEdit:SetText(AZPTTSeparator)
+            -- end)
         end
     end
 end
 
-AZPToolTips:OnLoad()
+if IsAddOnLoaded("AzerPUG's Core") then
+    print("Core Loaded!")
+else
+    print("Core Not Loaded!")
+    AZP.ToolTips:OnLoadSelf()
+end

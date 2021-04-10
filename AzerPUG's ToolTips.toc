@@ -19,5 +19,7 @@
 ## Version: SL 9.0.5 (For actual addon version, check main.lua)
 ## SavedVariables: AZPTTSeparator
 
+##OptionalDeps: AzerPUG's Core
+
 dataTables.lua
 main.lua
