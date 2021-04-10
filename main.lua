@@ -169,20 +169,24 @@ function DelayedExecution(delayTime, delayedFunction)
     frame:Show()
 end
 
+-- For Stand-Alone usage.
 function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW Function.
+    local versionString = string.format("|TT:%d|", AZP.VersionControl.ToolTips)
     DelayedExecution(10, function() 
-        if IsInRaid() then
-            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", AZP.VersionControl.ToolTips ,"RAID", 1)
-        end
         if IsInGroup() then
-            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", AZP.VersionControl.ToolTips ,"PARTY", 1)
+            if IsInRaid() then
+                C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"RAID", 1)
+            else
+                C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"PARTY", 1)
+            end
         end
         if IsInGuild() then
-            C_ChatInfo.SendAddonMessage("AZPTT_VERSION", AZP.VersionControl.ToolTips ,"GUILD", 1)
+            C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"GUILD", 1)
         end
     end)
 end
 
+-- For Stand-Alone usage.
 function AZP.ToolTips:ReceiveVersion(version)
     if version > AZP.VersionControl.ToolTips then
         if (not HaveShowedUpdateNotification) then
@@ -198,11 +202,25 @@ function AZP.ToolTips:ReceiveVersion(version)
     end
 end
 
+function AZP.ToolTips:GetSpecificAddonVersion(versionString, addonWanted)
+    local pattern = "|([A-Z]+):([0-9]+)|"
+    local index
+    while index < #payload do
+        local _, endPos = string.find(payload, pattern, index)
+        local addon, version = string.match(payload, pattern, index)
+        index = endPos + 1
+        if addon == addonWanted then
+            return version
+        end
+    end
+end
+
+-- For Stand-alone usage
 function AZP.ToolTips:OnEvent(event, ...)
     if event == "CHAT_MSG_ADDON" then
         local prefix, payload, _, sender = ...
-        if prefix == "AZPTT_VERSION" then
-            AZP.ToolTips:ReceiveVersion(tonumber(payload))
+        if prefix == "AZPVERSIONS" then
+            AZP.ToolTips:ReceiveVersion(AZP.ToolTips:GetSpecificAddonVersion(payload, "TT"))
         end
     elseif event == "GROUP_ROSTER_UPDATE" then
         AZP.ToolTips:ShareVersion()
