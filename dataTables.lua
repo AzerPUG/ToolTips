@@ -1,5 +1,7 @@
 if AZP == nil then AZP = {} end
-AZP.Currencies = {
+if AZP.ToolTips == nil then AZP.ToolTips = {} end
+
+AZP.ToolTips.Currencies = {
     ["Valor"] =
     {
         ["Icon"] = "\124T463447:12\124t"

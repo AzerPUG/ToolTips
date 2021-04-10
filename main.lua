@@ -5,8 +5,7 @@ if AZP.OnEvent == nil then AZP.OnEvent = {} end
 if AZP.OnEvent == nil then AZP.OnEvent = {} end
 
 AZP.VersionControl.ToolTips = 23
-AZP.ToolTips = {}
-if AZP.ToolTips ~= nil then print("NOT NIL!") else print("NIL!") end
+if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
@@ -220,9 +219,6 @@ function AZP.ToolTips:OnEvent(event, ...)
     end
 end
 
-if IsAddOnLoaded("AzerPUG's Core") then
-    print("Core Loaded!")
-else
-    print("Core Not Loaded!")
+if not IsAddOnLoaded("AzerPUG's Core") then
     AZP.ToolTips:OnLoadSelf()
 end
