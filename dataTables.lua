@@ -201,4 +201,10 @@ AZPToolTips.ItemUpgrades =
     [7199] = {250, 5, 7, AZPToolTips.Currencies.Anima, 7200},
     [7200] = {300, 6, 7, AZPToolTips.Currencies.Anima, 7201},
     [7201] = {nil, 7, 7, AZPToolTips.Currencies.Anima, nil},
+
+    -- Legendaries
+    [6716] = {750, 1, 4, nil, 6717},
+    [6717] = {1200, 2, 3, nil, 6718},
+    [6718] = {1950, 3, 4, nil, 6758},
+    [6758] = {nil, 4, 5, nil, nil}
 }
