@@ -92,37 +92,16 @@ end
 function AZPToolTips:SearchShadowlandsLegendaryItem()
     local searchValue = ITEM_UNIQUE_EQUIPPABLE
     local ttname = GameTooltip:GetName()
-    local lastLineLeft, lastLineRight, matchFound, lineInserted = nil, nil, false, false
     for i = 1, GameTooltip:NumLines() do
         local left = _G[ttname .. "TextLeft" .. i]
-        local right = _G[ttname .. "TextRight" .. i]
         local text = left:GetText()
-        local textRight = right:GetText()
-        if matchFound and not lineInserted then
+
+        if text:find(searchValue, 1, true)  then
             local legendaryString = AZPToolTips:GetLegendaryString()
             if legendaryString then 
-                left:SetText(legendaryString)
-                right:SetText(nil)
-                lineInserted = true
-            else
-                break -- Item found, is not legendary.
-            end
-        elseif matchFound and lineInserted then
-            left:SetText(lastLineLeft)
-            right:SetText(lastLineRight)
-            if lastLineRight ~= nil then
-                right:Show()   
+                GameTooltip:AddLine(legendaryString)
             end
         end
-        if text:find(searchValue, 1, true)  then
-            matchFound = true
-        end
-        lastLineLeft = text
-        lastLineRight = textRight
-
-    end
-    if matchFound and lineInserted then
-        GameTooltip:AddLine(lastLine)
     end
 end
 
@@ -133,10 +112,10 @@ function AZPToolTips:GetLegendaryString()
     local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
     if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
         for j = 1, tonumber(NumBonusIDs) do
-            local CurrentItem = ItemUpgrades[bonusIDList[j]]
+            local CurrentItem = AZPToolTips.LegendaryItemUpgrades[bonusIDList[j]]
             if CurrentItem ~= nil then
                 cost, cur, max, currency, _ = unpack(CurrentItem)
-                priceToMax = AZPToolTips:StackUpgradeCosts(bonusIDList[j])
+                priceToMax = AZPToolTips:StackUpgradeCosts(AZPToolTips.LegendaryItemUpgrades, bonusIDList[j])
             end
         end
     end
@@ -165,7 +144,7 @@ function AZPToolTips:SearchGenericUpgradeableItem()
                     local CurrentItem = ItemUpgrades[bonusIDList[j]]
                     if CurrentItem ~= nil then
                         cost, cur, max, currency, _ = unpack(CurrentItem)
-                        priceToMax = AZPToolTips:StackUpgradeCosts(bonusIDList[j])
+                        priceToMax = AZPToolTips:StackUpgradeCosts(AZPToolTips.ItemUpgrades, bonusIDList[j])
                     end
                 end
             end
@@ -185,12 +164,14 @@ function AZPToolTips:SearchGenericUpgradeableItem()
     end
 end
 
-function AZPToolTips:StackUpgradeCosts(startID)
+function AZPToolTips:StackUpgradeCosts(itemTable, startID)
     local totalCost = 0
     local currentBonusID = startID
 
     while currentBonusID ~= nil do
-        local cost, _cur, _max, _currency, nextUpgrade = unpack(ItemUpgrades[currentBonusID])
+        local entry = itemTable[currentBonusID]
+        if entry == nil then return nil end
+        local cost, _cur, _max, _currency, nextUpgrade = unpack(entry)
         currentBonusID = nextUpgrade
         
         if cost ~= nil then
