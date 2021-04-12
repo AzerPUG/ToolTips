@@ -9,12 +9,10 @@ if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
-local ATTSelfOptionPanel
-local optionHeader = "|cFF00FFFFAzerPUG's ToolTips|r"
+local AZPTTSelfOptionPanel = nil
+local optionHeader = "|cFF00FFFFToolTips|r"
 
 function AZP.ToolTips:OnLoadBoth(optionsFrame)
-    -- AZP.ToolTips:FillOptionsPanel(optionsFrame)
-
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
 
@@ -84,7 +82,7 @@ function AZP.ToolTips:OnLoadSelf()
     UpdateFrame:SetBackdropColor(0.25, 0.25, 0.25, 0.80)
     UpdateFrame.header = UpdateFrame:CreateFontString("UpdateFrame", "ARTWORK", "GameFontNormalHuge")
     UpdateFrame.header:SetPoint("TOP", 0, -10)
-    UpdateFrame.header:SetText("|cFFFF0000AzerPUG ToolTips is out of date!|r")
+    UpdateFrame.header:SetText("|cFFFF0000AzerPUG's ToolTips is out of date!|r")
 
     UpdateFrame.text = UpdateFrame:CreateFontString("UpdateFrame", "ARTWORK", "GameFontNormalLarge")
     UpdateFrame.text:SetPoint("TOP", 0, -40)
@@ -98,23 +96,23 @@ function AZP.ToolTips:OnLoadSelf()
     UpdateFrameCloseButton:SetPoint("TOPRIGHT", UpdateFrame, "TOPRIGHT", 2, 2)
     UpdateFrameCloseButton:SetScript("OnClick", function() UpdateFrame:Hide() end )
 
-    ATTSelfOptionPanel = CreateFrame("FRAME", nil)
-    ATTSelfOptionPanel.name = optionHeader
-    InterfaceOptions_AddCategory(ATTSelfOptionPanel)
-    ATTSelfOptionPanel.header = ATTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
-    ATTSelfOptionPanel.header:SetPoint("TOP", 0, -10)
-    ATTSelfOptionPanel.header:SetText("|cFF00FFFFAzerPUG ToolTips Options!|r")
+    AZPTTSelfOptionPanel = CreateFrame("FRAME", nil)
+    AZPTTSelfOptionPanel.name = optionHeader
+    InterfaceOptions_AddCategory(AZPTTSelfOptionPanel)
+    AZPTTSelfOptionPanel.header = AZPTTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+    AZPTTSelfOptionPanel.header:SetPoint("TOP", 0, -10)
+    AZPTTSelfOptionPanel.header:SetText("|cFF00FFFFAzerPUG's ToolTips Options!|r")
 
-    ATTSelfOptionPanel.footer = ATTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-    ATTSelfOptionPanel.footer:SetPoint("TOP", 0, -300)
-    ATTSelfOptionPanel.footer:SetText(
+    AZPTTSelfOptionPanel.footer = AZPTTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    AZPTTSelfOptionPanel.footer:SetPoint("TOP", 0, -300)
+    AZPTTSelfOptionPanel.footer:SetText(
         "|cFF00FFFFAzerPUG Links:\n" ..
         "Website: www.azerpug.com\n" ..
         "Discord: www.azerpug.com/discord\n" ..
         "Twitch: www.twitch.tv/azerpug\n|r"
     )
-    AZP.ToolTips:FillOptionsPanel(ATTSelfOptionPanel)
-    AZP.ToolTips:OnLoadBoth(ATTSelfOptionPanel)
+    AZP.ToolTips:FillOptionsPanel(AZPTTSelfOptionPanel)
+    AZP.ToolTips:OnLoadBoth(AZPTTSelfOptionPanel)
     AZP.ToolTips:ShareVersion()
 end
 
@@ -230,8 +228,8 @@ function AZP.ToolTips:OnEvent(event, ...)
             if AZPTTSeparator == nil then
                 AZPTTSeparator = "/"
             end
-            -- ATTSelfOptionPanel:SetScript("OnShow", function()
-            --     ATTSelfOptionPanel.SeparatorEdit:SetText(AZPTTSeparator)
+            -- AZPTTSelfOptionPanel:SetScript("OnShow", function()
+            --     AZPTTSelfOptionPanel.SeparatorEdit:SetText(AZPTTSeparator)
             -- end)
         end
     end
