@@ -92,7 +92,8 @@ end
 function AZPToolTips:SearchShadowlandsLegendaryItem()
     local searchValue = ITEM_UNIQUE_EQUIPPABLE
     local ttname = GameTooltip:GetName()
-    for i = 1, GameTooltip:NumLines() do
+    local numLines = GameTooltip:NumLines()
+    for i = 1, numLines do
         local left = _G[ttname .. "TextLeft" .. i]
         local text = left:GetText()
 
@@ -100,6 +101,10 @@ function AZPToolTips:SearchShadowlandsLegendaryItem()
             local legendaryString = AZPToolTips:GetLegendaryString()
             if legendaryString then 
                 GameTooltip:AddLine(legendaryString)
+                GameTooltip:AddLine(" ")
+                _G[ttname .. "TextLeft" .. (numLines + 1)]:SetPoint("TOP", left, "BOTTOM", 0, -2)
+                _G[ttname .. "TextLeft" .. (numLines + 2)]:SetPoint("TOP", _G[ttname .. "TextLeft" .. numLines], "BOTTOM", 0, -2)
+                _G[ttname .. "TextLeft" .. (i + 1)]:SetPoint("TOP", _G[ttname .. "TextLeft" .. (numLines + 1)], "BOTTOM", 0, -2)
             end
         end
     end
