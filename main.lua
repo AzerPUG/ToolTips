@@ -89,24 +89,65 @@ function AZPToolTips:OnLoad()
     end)
 end
 
+
+function AZPToolTips:unpackIfNotNil(t)
+    if t ~= nil then
+        return unpack(t)
+    end
+end
+
 function AZPToolTips:SearchShadowlandsLegendaryItem()
     local searchValue = ITEM_UNIQUE_EQUIPPABLE
     local ttname = GameTooltip:GetName()
     local numLines = GameTooltip:NumLines()
+    local tooltipLines = {}
     for i = 1, numLines do
         local left = _G[ttname .. "TextLeft" .. i]
+        local right = _G[ttname .. "TextRight" .. i]
         local text = left:GetText()
-
+        local rl, gl, bl = left:GetTextColor()
+        local rr, gr, br = right:GetTextColor()
+        tooltipLines[#tooltipLines + 1] = {
+            ["left"] = {
+                ["text"] = left:GetText(),
+                ["color"] = {rl, gl, bl}
+            },
+            ["right"] = {
+                ["text"] = right:GetText(),
+                ["color"] = {rr, gr, br}
+            }
+        }
         if text:find(searchValue, 1, true)  then
             local legendaryString = AZPToolTips:GetLegendaryString()
             if legendaryString then 
-                GameTooltip:AddLine(legendaryString)
-                GameTooltip:AddLine(" ")
-                _G[ttname .. "TextLeft" .. (numLines + 1)]:SetPoint("TOP", left, "BOTTOM", 0, -2)
-                _G[ttname .. "TextLeft" .. (numLines + 2)]:SetPoint("TOP", _G[ttname .. "TextLeft" .. numLines], "BOTTOM", 0, -2)
-                _G[ttname .. "TextLeft" .. (i + 1)]:SetPoint("TOP", _G[ttname .. "TextLeft" .. (numLines + 1)], "BOTTOM", 0, -2)
+                tooltipLines[#tooltipLines + 1] = {
+                    ["left"] = {
+                        ["text"] = legendaryString,
+                        ["color"] = {}
+                    },
+                    ["right"] = {
+                        ["text"] = nil,
+                        ["color"] = {}
+                    }
+                }
             end
         end
+    end
+
+    local numNeededLines = #tooltipLines - GameTooltip:NumLines()
+    if numNeededLines > 0 then
+        for i = 1, numNeededLines do
+            GameTooltip:AddLine(" ")
+        end
+    end
+
+    for i = 1, #tooltipLines do
+        local left = _G[ttname .. "TextLeft" .. i]
+        left:SetText(tooltipLines[i].left.text)
+        left:SetTextColor(AZPToolTips:unpackIfNotNil(tooltipLines[i].left.color))
+        local right = _G[ttname .. "TextRight" .. i]
+        right:SetText(tooltipLines[i].right.text)
+        right:SetTextColor(AZPToolTips:unpackIfNotNil(tooltipLines[i].right.color))
     end
 end
 
