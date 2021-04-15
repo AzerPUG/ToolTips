@@ -12,6 +12,10 @@ AZPToolTips.Currencies = {
     {
         ["Icon"] = "\124T3528288:12\124t"
     },
+    ["SoulAsh"] =
+    {
+        ["Icon"] = "\124T3743738:12\124t"
+    },
 }
 
 AZPToolTips.ItemUpgrades =
@@ -206,8 +210,8 @@ AZPToolTips.ItemUpgrades =
 -- Seperate to identify legendary.
 AZPToolTips.LegendaryItemUpgrades =
 {
-    [6716] = {750, 1, 4, nil, 6717},
-    [6717] = {1200, 2, 3, nil, 6718},
-    [6718] = {1950, 3, 4, nil, 6758},
-    [6758] = {nil, 4, 5, nil, nil}
+    [6716] = {750, 1, 4, AZPToolTips.Currencies.SoulAsh, 6717},
+    [6717] = {1200, 2, 3, AZPToolTips.Currencies.SoulAsh, 6718},
+    [6718] = {1950, 3, 4, AZPToolTips.Currencies.SoulAsh, 6758},
+    [6758] = {nil, 4, 5, AZPToolTips.Currencies.SoulAsh, nil}
 }

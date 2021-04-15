@@ -122,7 +122,8 @@ function AZPToolTips:GetLegendaryString()
     if cost == nil then 
         return nil
     else
-        return string.format("|cFF00FFFFUpgrade: %d, total: %d|r", cost, priceToMax)
+        
+        return string.format("|cFF00FFFFUpgrade: %d%s, total: %d%s|r", cost, currency.Icon, priceToMax, currency.Icon)
     end
 end
 function AZPToolTips:SearchGenericUpgradeableItem()
