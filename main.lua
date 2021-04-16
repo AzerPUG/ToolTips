@@ -12,7 +12,7 @@ local HaveShowedUpdateNotification = false
 local AZPTTSelfOptionPanel = nil
 local optionHeader = "|cFF00FFFFToolTips|r"
 
-function AZP.ToolTips:OnLoadBoth(optionsFrame)
+function AZP.ToolTips:OnLoadBoth()
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
 
@@ -54,8 +54,8 @@ function AZP.ToolTips:OnLoadBoth(optionsFrame)
     end)
 end
 
-function AZP.ToolTips:OnLoadCore(optionsFrame)
-    AZP.ToolTips:OnLoadBoth(optionsFrame)
+function AZP.ToolTips:OnLoadCore()
+    AZP.ToolTips:OnLoadBoth()
     AZP.OptionsPanels:Generic("ToolTips", optionHeader, function (frame)
         AZP.ToolTips:FillOptionsPanel(frame)
     end)
