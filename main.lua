@@ -20,6 +20,7 @@ function AZP.ToolTips:OnLoadBoth()
 end
 
 function AZP.ToolTips:OnLoadCore()
+    AZP.Core:RegisterEvents("ADDON_LOADED", AZP.ToolTips.eventAddonLoaded)
     AZP.ToolTips:OnLoadBoth()
     AZP.OptionsPanels:Generic("ToolTips", optionHeader, function (frame)
         AZP.ToolTips:FillOptionsPanel(frame)
@@ -256,6 +257,14 @@ function AZP.ToolTips:GetSpecificAddonVersion(versionString, addonWanted)
     end
 end
 
+function AZP.ToolTips.eventAddonLoaded(addonName)
+    if addonName == "AzerPUG's ToolTips" then
+        if AZPTTSeparator == nil then
+            AZPTTSeparator = "/"
+        end
+    end
+end
+
 -- For Stand-alone usage
 function AZP.ToolTips:OnEvent(event, ...)
     if event == "CHAT_MSG_ADDON" then
@@ -266,12 +275,7 @@ function AZP.ToolTips:OnEvent(event, ...)
     elseif event == "GROUP_ROSTER_UPDATE" then
         AZP.ToolTips:ShareVersion()
     elseif event == "ADDON_LOADED" then
-        local addonName = ...
-        if addonName == "AzerPUG's ToolTips" then
-            if AZPTTSeparator == nil then
-                AZPTTSeparator = "/"
-            end
-        end
+        AZP.ToolTips.eventAddonLoaded(...)
     end
 end
 
