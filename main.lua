@@ -21,7 +21,9 @@ end
 
 function AZP.ToolTips:OnLoadCore()
     AZP.ToolTips:OnLoadBoth()
-    AZP.OptionsPanels:Generic("ToolTips", optionHeader, AZP.ToolTips.FillOptionsPanel)
+    AZP.OptionsPanels:Generic("ToolTips", optionHeader, function (frame)
+        AZP.ToolTips:FillOptionsPanel(frame)
+    end)
 end
 
 function AZP.ToolTips:OnLoadSelf()
@@ -74,12 +76,12 @@ function AZP.ToolTips:OnLoadSelf()
         "Discord: www.azerpug.com/discord\n" ..
         "Twitch: www.twitch.tv/azerpug\n|r"
     )
-    AZP.ToolTips.FillOptionsPanel(AZPTTSelfOptionPanel)
+    AZP.ToolTips:FillOptionsPanel(AZPTTSelfOptionPanel)
     AZP.ToolTips:OnLoadBoth(AZPTTSelfOptionPanel)
     AZP.ToolTips:ShareVersion()
 end
 
-function AZP.ToolTips.FillOptionsPanel(frameToFill)
+function AZP.ToolTips:FillOptionsPanel(frameToFill)
     frameToFill.SeparatorEdit = CreateFrame("EditBox", nil, frameToFill, "InputBoxTemplate")
     frameToFill.SeparatorEdit:SetSize(100, 25)
     frameToFill.SeparatorEdit:SetPoint("TOPLEFT", 100, -100)
