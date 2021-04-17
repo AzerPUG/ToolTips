@@ -14,6 +14,10 @@ AZP.ToolTips.Currencies = {
     {
         ["Icon"] = "\124T3528288:12\124t"
     },
+    ["SoulAsh"] =
+    {
+        ["Icon"] = "\124T3743738:12\124t"
+    },
 }
 
 AZP.ToolTips.ItemUpgrades =
@@ -203,4 +207,14 @@ AZP.ToolTips.ItemUpgrades =
     [7199] = {250, 5, 7, AZP.ToolTips.Currencies.Anima, 7200},
     [7200] = {300, 6, 7, AZP.ToolTips.Currencies.Anima, 7201},
     [7201] = {nil, 7, 7, AZP.ToolTips.Currencies.Anima, nil},
+
+}
+
+-- Seperate to identify legendary.
+AZPToolTips.LegendaryItemUpgrades =
+{
+    [6716] = {750, 1, 4, AZP.ToolTips.Currencies.SoulAsh, 6717},
+    [6717] = {1200, 2, 3, AZP.ToolTips.Currencies.SoulAsh, 6718},
+    [6718] = {1950, 3, 4, AZP.ToolTips.Currencies.SoulAsh, 6758},
+    [6758] = {nil, 4, 5, AZP.ToolTips.Currencies.SoulAsh, nil}
 }
