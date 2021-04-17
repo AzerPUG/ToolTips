@@ -211,7 +211,7 @@ AZP.ToolTips.ItemUpgrades =
 }
 
 -- Seperate to identify legendary.
-AZPToolTips.LegendaryItemUpgrades =
+AZP.ToolTips.LegendaryItemUpgrades =
 {
     [6716] = {750, 1, 4, AZP.ToolTips.Currencies.SoulAsh, 6717},
     [6717] = {1200, 2, 3, AZP.ToolTips.Currencies.SoulAsh, 6718},
