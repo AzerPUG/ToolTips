@@ -4,7 +4,7 @@ if AZP.OnLoad == nil then AZP.OnLoad = {} end
 if AZP.OnEvent == nil then AZP.OnEvent = {} end
 if AZP.OnEvent == nil then AZP.OnEvent = {} end
 
-AZP.VersionControl.ToolTips = 23
+AZP.VersionControl.ToolTips = 26
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
 local EventFrame, UpdateFrame = nil, nil
@@ -13,48 +13,14 @@ local AZPTTSelfOptionPanel = nil
 local optionHeader = "|cFF00FFFFToolTips|r"
 
 function AZP.ToolTips:OnLoadBoth()
-    local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
-    local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
-
     GameTooltip:HookScript("OnTooltipSetItem", function (...)
-        local ttname = GameTooltip:GetName()
-        for i = 1, GameTooltip:NumLines() do
-            local left = _G[ttname .. "TextLeft" .. i]
-            local text = left:GetText()
-            if text:find(searchValue) then
-                local cost, cur, max, currency, nextUpgrade, priceToMax
-                local _, itemLink = GameTooltip:GetItem()
-                local itemString = itemLink:gsub("|", "-")
-
-                local v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
-                local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
-                if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
-                    for j = 1, tonumber(NumBonusIDs) do
-                        local CurrentItem = AZP.ToolTips.ItemUpgrades[bonusIDList[j]]
-                        if CurrentItem ~= nil then
-                            cost, cur, max, currency, _ = unpack(CurrentItem)
-                            priceToMax = AZP.ToolTips:StackUpgradeCosts(bonusIDList[j])
-                        end
-                    end
-                end
-
-                local displayIcon = ""
-                if currency ~= nil then
-                    displayIcon = currency.Icon
-                end
-
-                local separator = AZPTTSeparator
-                if cost ~= nil then
-                    left:SetText(text .. "  |cFF00FFFF(" .. cost .. displayIcon .. " " .. separator .. " " .. priceToMax .. displayIcon .. ")|r")
-                elseif max == nil then
-                    left:SetText(text .. "  |cFF00FFFF(Coming Soon™!)|r")
-                end
-            end
-        end
+        AZP.ToolTips:SearchGenericUpgradeableItem()
+        AZP.ToolTips:SearchShadowlandsLegendaryItem()
     end)
 end
 
 function AZP.ToolTips:OnLoadCore()
+    AZP.Core:RegisterEvents("ADDON_LOADED", AZP.ToolTips.eventAddonLoaded)
     AZP.ToolTips:OnLoadBoth()
     AZP.OptionsPanels:Generic("ToolTips", optionHeader, function (frame)
         AZP.ToolTips:FillOptionsPanel(frame)
@@ -136,12 +102,90 @@ function AZP.ToolTips:FillOptionsPanel(frameToFill)
     frameToFill:Hide()
 end
 
-function AZP.ToolTips:StackUpgradeCosts(startID)
+function AZP.ToolTips:SearchShadowlandsLegendaryItem()
+    local searchValue = ITEM_UNIQUE_EQUIPPABLE
+    local ttname = GameTooltip:GetName()
+    for i = 1, GameTooltip:NumLines() do
+        local left = _G[ttname .. "TextLeft" .. i]
+        local text = left:GetText()
+
+        if text:find(searchValue, 1, true)  then
+            local legendaryString = AZP.ToolTips:GetLegendaryString()
+            if legendaryString then 
+                GameTooltip:AddLine(legendaryString)
+            end
+        end
+    end
+end
+
+function AZP.ToolTips:GetLegendaryString()
+    local _, itemLink = GameTooltip:GetItem()
+    local cost, cur, max, currency, nextUpgrade, priceToMax
+    local NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = select(13, strsplit(":", itemLink))
+    local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
+    if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
+        for j = 1, tonumber(NumBonusIDs) do
+            local CurrentItem = AZP.ToolTips.LegendaryItemUpgrades[bonusIDList[j]]
+            if CurrentItem ~= nil then
+                cost, cur, max, currency, _ = unpack(CurrentItem)
+                priceToMax = AZP.ToolTips:StackUpgradeCosts(AZP.ToolTips.LegendaryItemUpgrades, bonusIDList[j])
+            end
+        end
+    end
+    if cost == nil then 
+        return nil
+    else
+        return string.format("|cFF00FFFFUpgrade: %d%s, total: %d%s|r", cost, currency.Icon, priceToMax, currency.Icon)
+    end
+end
+
+function AZP.ToolTips:SearchGenericUpgradeableItem()
+    local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
+    local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
+    local ttname = GameTooltip:GetName()
+    for i = 1, GameTooltip:NumLines() do
+        local left = _G[ttname .. "TextLeft" .. i]
+        local text = left:GetText()
+        if text:find(searchValue) then
+            local cost, cur, max, currency, nextUpgrade, priceToMax
+            local _, itemLink = GameTooltip:GetItem()
+            local itemString = itemLink:gsub("|", "-")
+
+            local v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
+            local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
+            if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
+                for j = 1, tonumber(NumBonusIDs) do
+                    local CurrentItem = AZP.ToolTips.ItemUpgrades[bonusIDList[j]]
+                    if CurrentItem ~= nil then
+                        cost, cur, max, currency, _ = unpack(CurrentItem)
+                        priceToMax = AZP.ToolTips:StackUpgradeCosts(AZP.ToolTips.ItemUpgrades, bonusIDList[j])
+                    end
+                end
+            end
+
+            local displayIcon = ""
+            if currency ~= nil then
+                displayIcon = currency.Icon
+            end
+
+            local separator = AZPTTSeparator
+            if cost ~= nil then
+                left:SetText(text .. "  |cFF00FFFF(" .. cost .. displayIcon .. " " .. separator .. " " .. priceToMax .. displayIcon .. ")|r")
+            elseif max == nil then
+                left:SetText(text .. "  |cFF00FFFF(Coming Soon™!)|r")
+            end
+        end
+    end
+end
+
+function AZP.ToolTips:StackUpgradeCosts(itemTable, startID)
     local totalCost = 0
     local currentBonusID = startID
 
     while currentBonusID ~= nil do
-        local cost, _, _, _, nextUpgrade = unpack(AZP.ToolTips.ItemUpgrades[currentBonusID])
+        local entry = itemTable[currentBonusID]
+        if entry == nil then return nil end
+        local cost, _, _, _, nextUpgrade = unpack(entry)
         currentBonusID = nextUpgrade
 
         if cost ~= nil then
@@ -211,6 +255,14 @@ function AZP.ToolTips:GetSpecificAddonVersion(versionString, addonWanted)
     end
 end
 
+function AZP.ToolTips.eventAddonLoaded(addonName)
+    if addonName == "AzerPUG's ToolTips" then
+        if AZPTTSeparator == nil then
+            AZPTTSeparator = "/"
+        end
+    end
+end
+
 function AZP.ToolTips:OnEvent(event, ...)
     if event == "CHAT_MSG_ADDON" then
         local prefix, payload, _, sender = ...
@@ -220,15 +272,7 @@ function AZP.ToolTips:OnEvent(event, ...)
     elseif event == "GROUP_ROSTER_UPDATE" then
         AZP.ToolTips:ShareVersion()
     elseif event == "ADDON_LOADED" then
-        local addonName = ...
-        if addonName == "AzerPUG's ToolTips" then
-            if AZPTTSeparator == nil then
-                AZPTTSeparator = "/"
-            end
-            -- AZPTTSelfOptionPanel:SetScript("OnShow", function()
-            --     AZPTTSelfOptionPanel.SeparatorEdit:SetText(AZPTTSeparator)
-            -- end)
-        end
+        AZP.ToolTips.eventAddonLoaded(...)
     end
 end
 
