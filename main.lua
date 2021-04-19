@@ -63,7 +63,7 @@ function AZP.ToolTips:OnLoadSelf()
     UpdateFrameCloseButton:SetScript("OnClick", function() UpdateFrame:Hide() end )
 
     AZPTTSelfOptionPanel = CreateFrame("FRAME", nil)
-    AZPTTSelfOptionPanel.name = optionHeader
+    AZPTTSelfOptionPanel.name = "|cFF00FFFFAzerPUG's ToolTips|r"
     InterfaceOptions_AddCategory(AZPTTSelfOptionPanel)
     AZPTTSelfOptionPanel.header = AZPTTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPTTSelfOptionPanel.header:SetPoint("TOP", 0, -10)
@@ -78,7 +78,7 @@ function AZP.ToolTips:OnLoadSelf()
         "Twitch: www.twitch.tv/azerpug\n|r"
     )
     AZP.ToolTips:FillOptionsPanel(AZPTTSelfOptionPanel)
-    AZP.ToolTips:OnLoadBoth(AZPTTSelfOptionPanel)
+    AZP.ToolTips:OnLoadBoth()
     AZP.ToolTips:ShareVersion()
 end
 
@@ -267,7 +267,10 @@ function AZP.ToolTips:OnEvent(event, ...)
     if event == "CHAT_MSG_ADDON" then
         local prefix, payload, _, sender = ...
         if prefix == "AZPVERSIONS" then
-            AZP.ToolTips:ReceiveVersion(AZP.ToolTips:GetSpecificAddonVersion(payload, "TT"))
+            local version = AZP.ToolTips:GetSpecificAddonVersion(payload, "TT")
+            if version ~= nil then
+                AZP.ToolTips:ReceiveVersion(version)
+            end
         end
     elseif event == "GROUP_ROSTER_UPDATE" then
         AZP.ToolTips:ShareVersion()
@@ -278,11 +281,4 @@ end
 
 if not IsAddOnLoaded("AzerPUG's Core") then
     AZP.ToolTips:OnLoadSelf()
-end
-
-SLASH_TTSHOW1 = "/azp"
-SlashCmdList["TTSHOW"] = function(addon)
-    if addon == "tt" or addon == "TT" then
-        print("This Has Worked!")
-    end
 end
