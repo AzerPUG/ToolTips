@@ -141,7 +141,7 @@ function AZP.ToolTips:StackUpgradeCosts(startID)
     local currentBonusID = startID
 
     while currentBonusID ~= nil do
-        local cost, _cur, _max, _currency, nextUpgrade = unpack(AZP.ToolTips.ItemUpgrades[currentBonusID])
+        local cost, _, _, _, nextUpgrade = unpack(AZP.ToolTips.ItemUpgrades[currentBonusID])
         currentBonusID = nextUpgrade
 
         if cost ~= nil then
@@ -167,7 +167,6 @@ function DelayedExecution(delayTime, delayedFunction)
     frame:Show()
 end
 
--- For Stand-Alone usage.
 function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW Function.
     local versionString = string.format("|TT:%d|", AZP.VersionControl.ToolTips)
     DelayedExecution(10, function() 
@@ -184,7 +183,6 @@ function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW
     end)
 end
 
--- For Stand-Alone usage.
 function AZP.ToolTips:ReceiveVersion(version)
     if version > AZP.VersionControl.ToolTips then
         if (not HaveShowedUpdateNotification) then
@@ -213,7 +211,6 @@ function AZP.ToolTips:GetSpecificAddonVersion(versionString, addonWanted)
     end
 end
 
--- For Stand-alone usage
 function AZP.ToolTips:OnEvent(event, ...)
     if event == "CHAT_MSG_ADDON" then
         local prefix, payload, _, sender = ...
@@ -237,4 +234,11 @@ end
 
 if not IsAddOnLoaded("AzerPUG's Core") then
     AZP.ToolTips:OnLoadSelf()
+end
+
+SLASH_TTSHOW1 = "/azp"
+SlashCmdList["TTSHOW"] = function(addon)
+    if addon == "tt" or addon == "TT" then
+        print("This Has Worked!")
+    end
 end
