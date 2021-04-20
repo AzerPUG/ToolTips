@@ -196,7 +196,7 @@ function AZP.ToolTips:StackUpgradeCosts(itemTable, startID)
     return totalCost
 end
 
-function DelayedExecution(delayTime, delayedFunction)
+function AZP.ToolTips:DelayedExecution(delayTime, delayedFunction)
     local frame = CreateFrame("Frame")
     frame.start_time = GetServerTime()
     frame:SetScript("OnUpdate",
@@ -213,7 +213,7 @@ end
 
 function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW Function.
     local versionString = string.format("|TT:%d|", AZP.VersionControl.ToolTips)
-    DelayedExecution(10, function() 
+    AZP.ToolTips:DelayedExecution(10, function() 
         if IsInGroup() then
             if IsInRaid() then
                 C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"RAID", 1)
@@ -255,7 +255,7 @@ function AZP.ToolTips:GetSpecificAddonVersion(versionString, addonWanted)
     end
 end
 
-function AZP.ToolTips.eventAddonLoaded(addonName)
+function AZP.ToolTips:eventAddonLoaded(addonName)
     if addonName == "AzerPUG's ToolTips" then
         if AZPTTSeparator == nil then
             AZPTTSeparator = "/"
