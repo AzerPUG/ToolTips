@@ -17,8 +17,9 @@
 ## Notes-esMX: La información sobre herramientas de AzerPUG agrega información útil a la información sobre herramientas de elementos específicos.
 ## Notes-ptBR: As dicas de ferramentas do AzerPUG adicionam informações úteis às dicas de itens específicos.
 
-## Version: SL 9.0.5 (For actual addon version, check main.lua)
+## Version: SL 9.0.5 (For actual addon version, check ToolTips.lua)
 ## SavedVariables: AZPTTSeparator
 
 dataTables.lua
-main.lua
+SlashCommands.lua
+ToolTips.lua
