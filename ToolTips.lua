@@ -22,6 +22,8 @@ end
 function AZP.ToolTips:OnLoadCore()
     AZP.Core:RegisterEvents("ADDON_LOADED", AZP.ToolTips.eventAddonLoaded)
     AZP.ToolTips:OnLoadBoth()
+
+    AZP.OptionsPanels:RemovePanel("ToolTips")
     AZP.OptionsPanels:Generic("ToolTips", optionHeader, function (frame)
         AZP.ToolTips:FillOptionsPanel(frame)
     end)
