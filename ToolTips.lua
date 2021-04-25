@@ -36,7 +36,7 @@ function AZP.ToolTips:OnLoadSelf()
     EventFrame:RegisterEvent("CHAT_MSG_ADDON")
     EventFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
     EventFrame:RegisterEvent("ADDON_LOADED")
-    EventFrame:SetScript("OnEvent", AZP.ToolTips.OnEvent)
+    EventFrame:SetScript("OnEvent", function(...) AZP.ToolTips:OnEvent(...) end)
 
     UpdateFrame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
     UpdateFrame:SetPoint("CENTER", 0, 250)
@@ -265,7 +265,7 @@ function AZP.ToolTips:eventAddonLoaded(addonName)
     end
 end
 
-function AZP.ToolTips:OnEvent(event, ...)
+function AZP.ToolTips:OnEvent(self, event, ...)
     if event == "CHAT_MSG_ADDON" then
         local prefix, payload, _, sender = ...
         if prefix == "AZPVERSIONS" then
