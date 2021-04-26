@@ -258,7 +258,7 @@ function AZP.ToolTips:GetSpecificAddonVersion(versionString, addonWanted)
 end
 
 function AZP.ToolTips:eventAddonLoaded(addonName)
-    if addonName == "AzerPUG's ToolTips" then
+    if addonName == "AzerPUGsToolTips" then
         if AZPTTSeparator == nil then
             AZPTTSeparator = "/"
         end
