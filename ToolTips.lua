@@ -281,6 +281,6 @@ function AZP.ToolTips:OnEvent(self, event, ...)
     end
 end
 
-if not IsAddOnLoaded("AzerPUG's Core") then
+if not IsAddOnLoaded("AzerPUGsCore") then
     AZP.ToolTips:OnLoadSelf()
 end
