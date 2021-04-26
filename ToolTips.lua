@@ -4,7 +4,7 @@ if AZP.OnLoad == nil then AZP.OnLoad = {} end
 if AZP.OnEvent == nil then AZP.OnEvent = {} end
 if AZP.OnEvent == nil then AZP.OnEvent = {} end
 
-AZP.VersionControl.ToolTips = 26
+AZP.VersionControl["ToolTips"] = 26
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
 local EventFrame, UpdateFrame = nil, nil
@@ -214,7 +214,7 @@ function AZP.ToolTips:DelayedExecution(delayTime, delayedFunction)
 end
 
 function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW Function.
-    local versionString = string.format("|TT:%d|", AZP.VersionControl.ToolTips)
+    local versionString = string.format("|TT:%d|", AZP.VersionControl["ToolTips"])
     AZP.ToolTips:DelayedExecution(10, function() 
         if IsInGroup() then
             if IsInRaid() then
@@ -230,15 +230,15 @@ function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW
 end
 
 function AZP.ToolTips:ReceiveVersion(version)
-    if version > AZP.VersionControl.ToolTips then
+    if version > AZP.VersionControl["ToolTips"] then
         if (not HaveShowedUpdateNotification) then
             HaveShowedUpdateNotification = true
             UpdateFrame:Show()
             UpdateFrame.text:SetText(
                 "Please download the new version through the CurseForge app.\n" ..
-                "Or use the CurseForge website to download it manually!\n\n" .. 
-                "Newer Version: v" .. version .. "\n" .. 
-                "Your version: v" .. AZP.VersionControl.ToolTips
+                "Or use the CurseForge website to download it manually!\n\n" ..
+                "Newer Version: v" .. version .. "\n" ..
+                "Your version: v" .. AZP.VersionControl["ToolTips"]
             )
         end
     end
