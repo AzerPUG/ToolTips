@@ -79,7 +79,6 @@ function AZP.ToolTips:OnLoadSelf()
     )
     AZP.ToolTips:FillOptionsPanel(AZPTTSelfOptionPanel)
     AZP.ToolTips:OnLoadBoth()
-    AZP.ToolTips:ShareVersion()
 end
 
 function AZP.ToolTips:FillOptionsPanel(frameToFill)
