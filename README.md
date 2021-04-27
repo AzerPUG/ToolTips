@@ -23,7 +23,7 @@ AzerPUG's ToolTips (slightly) changes the ToolTip of upgradable items to give th
 - Heirloom Items (Several Upgrade Methods). (Coming Soon!)
 
 # Bugs, Errors, Glitches and Requests.
-If you find any of the above, please do not hessitate to create a GitHub Issue here: https://github.com/AzerPUG/ToolTips/issues  
+If you find any of the above, please do not hesitate to create a GitHub Issue here: https://github.com/AzerPUG/ToolTips/issues  
 Or you can join our Discord and let us know in the AzerTech channel: http://www.azerpug.com/discord  
 Please note that our Discord Verification level prevents new people from talking/commenting/ranking in the first 10 minutes!
 
