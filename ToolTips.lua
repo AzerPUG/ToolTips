@@ -13,7 +13,7 @@ local optionHeader = "|cFF00FFFFToolTips|r"
 function AZP.ToolTips:OnLoadBoth()
     GameTooltip:HookScript("OnTooltipSetItem", function (...)
         AZP.ToolTips:SearchGenericUpgradeableItem()
-        AZP.ToolTips:SearchShadowlandsLegendaryItem()
+        AZP.ToolTips:CheckShadowlandsLegendaryItem()
     end)
 end
 
@@ -101,7 +101,7 @@ function AZP.ToolTips:FillOptionsPanel(frameToFill)
     frameToFill:Hide()
 end
 
-function AZP.ToolTips:SearchShadowlandsLegendaryItem()
+function AZP.ToolTips:CheckShadowlandsLegendaryItem()
     local searchValue = ITEM_UNIQUE_EQUIPPABLE
     local ttname = GameTooltip:GetName()
     for i = 1, GameTooltip:NumLines() do
@@ -109,9 +109,9 @@ function AZP.ToolTips:SearchShadowlandsLegendaryItem()
         local text = left:GetText()
 
         if text:find(searchValue, 1, true)  then
-            local legendaryString = AZP.ToolTips:GetLegendaryString()
-            if legendaryString then 
-                GameTooltip:AddLine(legendaryString)
+            local cost, priceToMax, currencyIcon = AZP.ToolTips:GetLegendaryString()
+            if cost ~= nil and priceToMax ~= nil and currencyIcon ~= nil then
+                AZP.ToolTips:SetLegendaryToolTip(cost, priceToMax, currencyIcon)
             end
         end
     end
@@ -131,10 +131,10 @@ function AZP.ToolTips:GetLegendaryString()
             end
         end
     end
-    if cost == nil then 
+    if cost == nil then
         return nil
     else
-        return string.format("|cFF00FFFFUpgrade: %d%s, total: %d%s|r", cost, currency.Icon, priceToMax, currency.Icon)
+        return cost, priceToMax, currency.Icon
     end
 end
 
@@ -175,6 +175,23 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
             end
         end
     end
+end
+
+function AZP.ToolTips:SetLegendaryToolTip(cost, priceToMax, currencyIcon)
+    local clipAfter = string.find(ITEM_LEVEL, "%%d") -1
+    local searchValue = string.sub(ITEM_LEVEL, 1, clipAfter)
+    local ttname = GameTooltip:GetName()
+    for i = 1, GameTooltip:NumLines() do
+        local left = _G[ttname .. "TextLeft" .. i]
+        local text = left:GetText()
+        if text:find(searchValue) then
+            local separator = AZPTTSeparator
+            if cost ~= nil then
+                left:SetText(text .. "  |cFF00FFFF(" .. cost .. currencyIcon .. " " .. separator .. " " .. priceToMax .. currencyIcon .. ")|r")
+            end
+        end
+    end
+
 end
 
 function AZP.ToolTips:StackUpgradeCosts(itemTable, startID)
