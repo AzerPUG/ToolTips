@@ -2,13 +2,12 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 27
+AZP.VersionControl["ToolTips"] = 28
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
 local AZPTTSelfOptionPanel = nil
-local optionHeader = "|cFF00FFFFToolTips|r"
 
 function AZP.ToolTips:OnLoadBoth()
     GameTooltip:HookScript("OnTooltipSetItem", function (...)
@@ -22,7 +21,7 @@ function AZP.ToolTips:OnLoadCore()
     AZP.ToolTips:OnLoadBoth()
 
     AZP.OptionsPanels:RemovePanel("ToolTips")
-    AZP.OptionsPanels:Generic("ToolTips", optionHeader, function(frame)
+    AZP.OptionsPanels:Generic("ToolTips", function(frame)
         AZP.ToolTips:FillOptionsPanel(frame)
     end)
 end
@@ -67,7 +66,7 @@ function AZP.ToolTips:OnLoadSelf()
     InterfaceOptions_AddCategory(AZPTTSelfOptionPanel)
     AZPTTSelfOptionPanel.header = AZPTTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
     AZPTTSelfOptionPanel.header:SetPoint("TOP", 0, -10)
-    AZPTTSelfOptionPanel.header:SetText("|cFF00FFFFAzerPUG's ToolTips Options!|r")
+    AZPTTSelfOptionPanel.header:SetText(AZPTTSelfOptionPanel.name)
 
     AZPTTSelfOptionPanel.footer = AZPTTSelfOptionPanel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     AZPTTSelfOptionPanel.footer:SetPoint("TOP", 0, -300)
