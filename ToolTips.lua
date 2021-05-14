@@ -229,7 +229,7 @@ end
 function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW Function.
     local versionString = string.format("|TT:%d|", AZP.VersionControl["ToolTips"])
     AZP.ToolTips:DelayedExecution(10, function()
-        if UnitInBattleground("player") == nil then
+        if UnitInBattleground("player") ~= nil then
             -- BG stuff?
         else
             if IsInGroup() then
