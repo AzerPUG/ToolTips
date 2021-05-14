@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 28
+AZP.VersionControl["ToolTips"] = 29
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
 local EventFrame, UpdateFrame = nil, nil
