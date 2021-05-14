@@ -21,7 +21,7 @@ function AZP.ToolTips:OnLoadCore()
     AZP.ToolTips:OnLoadBoth()
 
     AZP.OptionsPanels:RemovePanel("ToolTips")
-    AZP.OptionsPanels:Generic("ToolTips", function(frame)
+    AZP.OptionsPanels:Generic("ToolTips", "|cFF00FFFFToolTips|r", function(frame)
         AZP.ToolTips:FillOptionsPanel(frame)
     end)
 end
