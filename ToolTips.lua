@@ -4,20 +4,21 @@ if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
 AZP.VersionControl["ToolTips"] = 29
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
+if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
 local AZPTTSelfOptionPanel = nil
 
 function AZP.ToolTips:OnLoadBoth()
-    GameTooltip:HookScript("OnTooltipSetItem", function (...)
+    GameTooltip:HookScript("OnTooltipSetItem", function(...)
         AZP.ToolTips:SearchGenericUpgradeableItem()
         AZP.ToolTips:CheckShadowlandsLegendaryItem()
     end)
 end
 
 function AZP.ToolTips:OnLoadCore()
-    AZP.Core:RegisterEvents("ADDON_LOADED", function(...) AZP.ToolTips:eventAddonLoaded(...) end)
+    AZP.Core:RegisterEvents("ADDON_LOADED", function(...) AZP.ToolTips.Events:AddonLoaded(...) end)
     AZP.ToolTips:OnLoadBoth()
 
     AZP.OptionsPanels:RemovePanel("ToolTips")
@@ -274,7 +275,7 @@ function AZP.ToolTips:GetSpecificAddonVersion(versionString, addonWanted)
     end
 end
 
-function AZP.ToolTips:eventAddonLoaded(addonName)
+function AZP.ToolTips.Events:AddonLoaded(addonName)
     if addonName == "AzerPUGsToolTips" then
         if AZPTTSeparator == nil then
             AZPTTSeparator = "/"
@@ -294,7 +295,7 @@ function AZP.ToolTips:OnEvent(self, event, ...)
     elseif event == "GROUP_ROSTER_UPDATE" then
         AZP.ToolTips:ShareVersion()
     elseif event == "ADDON_LOADED" then
-        AZP.ToolTips:eventAddonLoaded(...)
+        AZP.ToolTips.Events:AddonLoaded(...)
     end
 end
 
