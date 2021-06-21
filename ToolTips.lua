@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 29
+AZP.VersionControl["ToolTips"] = 30
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 
@@ -15,6 +15,9 @@ function AZP.ToolTips:OnLoadBoth()
         AZP.ToolTips:SearchGenericUpgradeableItem()
         AZP.ToolTips:CheckShadowlandsLegendaryItem()
     end)
+    -- GameTooltip:HookScript("OnShow", function(...)
+    --     AZP.ToolTips:CheckStatsToolTips()
+    -- end)
 end
 
 function AZP.ToolTips:OnLoadCore()
@@ -117,6 +120,28 @@ function AZP.ToolTips:CheckShadowlandsLegendaryItem()
     end
 end
 
+function AZP.ToolTips:CheckStatsToolTips()
+    local searchValue = "[f%%/f%%]"
+    --STAT_HASTE_BASE_TOOLTIP, STAT_MASTERY_TOOLTIP, CR_VERSATILITY_TOOLTIP}
+
+    local leftText = _G["GameTooltipTextLeft1"]:GetText()
+
+    print(leftText:find(searchValue))
+    -- local ttname = GameTooltip:GetName()
+    -- print(GameTooltip:NumLines())
+    -- for i = 1, GameTooltip:NumLines() do
+    --     local left = _G[ttname .. "TextLeft" .. i]
+    --     local text = left:GetText()
+    --     print(text)
+
+    --     --for j = 1, #searchValue do
+    --         if text:find(searchValue, 1, true) then
+    --             print("StatToolTip Found!", searchValue)
+    --         end
+    --     --end
+    -- end
+end
+
 function AZP.ToolTips:GetLegendaryString()
     local _, itemLink = GameTooltip:GetItem()
     local cost, cur, max, currency, nextUpgrade, priceToMax
@@ -139,9 +164,10 @@ function AZP.ToolTips:GetLegendaryString()
 end
 
 function AZP.ToolTips:SearchGenericUpgradeableItem()
-    local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
-    local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
-    local ttname = GameTooltip:GetName()
+    --local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
+    --local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
+    local searchValue = ITEM_UPGRADE_TOOLTIP_FORMAT
+    local ttname = GameTooltip:GetName()        -- GameTooltip:GetName always returns the name "GameTooltip"? Why do this?
     for i = 1, GameTooltip:NumLines() do
         local left = _G[ttname .. "TextLeft" .. i]
         local text = left:GetText()

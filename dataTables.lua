@@ -4,20 +4,32 @@ if AZP.ToolTips == nil then AZP.ToolTips = {} end
 AZP.ToolTips.Currencies = {
     ["Valor"] =
     {
-        ["Icon"] = "\124T463447:12\124t"
+        ["Icon"] = "\124T463447:12\124t",
     },
     ["Honor"] =
     {
-        ["Icon"] = "\124T1455894:12\124t"
+        ["Icon"] = "\124T1455894:12\124t",
     },
     ["Anima"] =
     {
-        ["Icon"] = "\124T3528288:12\124t"
+        ["Icon"] = "\124T3528288:12\124t",
     },
     ["SoulAsh"] =
     {
-        ["Icon"] = "\124T3743738:12\124t"
+        ["Icon"] = "\124T3743738:12\124t",
     },
+    ["Stygia"] =
+    {
+        ["Icon"] = "\124T3743739:12\124t",
+    },
+    ["CatalogedResearch"] =
+    {
+        ["Icon"] = "\124T1506458:12\124t",
+    },
+    ["SoulCinders"] =
+    {
+        ["Icon"] = "\124T4067362:12\124t"
+    }
 }
 
 AZP.ToolTips.ItemUpgrades =
@@ -207,6 +219,8 @@ AZP.ToolTips.ItemUpgrades =
     [7199] = {250, 5, 7, AZP.ToolTips.Currencies.Anima, 7200},
     [7200] = {300, 6, 7, AZP.ToolTips.Currencies.Anima, 7201},
     [7201] = {nil, 7, 7, AZP.ToolTips.Currencies.Anima, nil},
+
+    -- Stygia Items
 
 }
 
