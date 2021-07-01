@@ -200,7 +200,7 @@ AZP.ToolTips.ItemUpgrades =
     [7230] = {nil, 6, 6, AZP.ToolTips.Currencies.Honor, nil},
 
     -- Anima Items
-    [7195] = {50, 1, 7, AZP.ToolTips.Currencies.Anima, 7196},
+    [7195] = {50,  1, 7, AZP.ToolTips.Currencies.Anima, 7196},
     [7196] = {100, 2, 7, AZP.ToolTips.Currencies.Anima, 7197},
     [7197] = {150, 3, 7, AZP.ToolTips.Currencies.Anima, 7198},
     [7198] = {200, 4, 7, AZP.ToolTips.Currencies.Anima, 7199},
@@ -208,6 +208,12 @@ AZP.ToolTips.ItemUpgrades =
     [7200] = {300, 6, 7, AZP.ToolTips.Currencies.Anima, 7201},
     [7201] = {nil, 7, 7, AZP.ToolTips.Currencies.Anima, nil},
 
+    [7692] = {250,  1, 6, nil, 7693},
+    [7693] = {750,  2, 6, nil, 7694},
+    [7694] = {1250, 3, 6, nil, 7695},
+    [7695] = {2000, 4, 6, nil, 7696},
+    [7696] = {3000, 5, 6, nil, 7697},
+    [7697] = {nil,  6, 6, nil, nil},
 }
 
 -- Seperate to identify legendary.
