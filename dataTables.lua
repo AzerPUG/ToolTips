@@ -18,6 +18,10 @@ AZP.ToolTips.Currencies = {
     {
         ["Icon"] = "\124T3743738:12\124t"
     },
+    ["CataloggedResearch"] =
+    {
+        ["Icon"] = "\124T1506458:12\124t"
+    },
 }
 
 AZP.ToolTips.ItemUpgrades =
@@ -220,12 +224,12 @@ AZP.ToolTips.ItemUpgrades =
     -----------------------------------
     ---------- Korthia Items ----------
     -----------------------------------
-    [7692] = {250,  1, 6, nil, 7693},
-    [7693] = {750,  2, 6, nil, 7694},
-    [7694] = {1250, 3, 6, nil, 7695},
-    [7695] = {2000, 4, 6, nil, 7696},
-    [7696] = {3000, 5, 6, nil, 7697},
-    [7697] = {nil,  6, 6, nil, nil},
+    [7692] = {250,  1, 6, AZP.ToolTips.Currencies.CataloggedResearch, 7693},
+    [7693] = {750,  2, 6, AZP.ToolTips.Currencies.CataloggedResearch, 7694},
+    [7694] = {1250, 3, 6, AZP.ToolTips.Currencies.CataloggedResearch, 7695},
+    [7695] = {2000, 4, 6, AZP.ToolTips.Currencies.CataloggedResearch, 7696},
+    [7696] = {3000, 5, 6, AZP.ToolTips.Currencies.CataloggedResearch, 7697},
+    [7697] = {nil,  6, 6, AZP.ToolTips.Currencies.CataloggedResearch, nil},
 }
 
 AZP.ToolTips.LegendaryItemUpgrades =
