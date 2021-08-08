@@ -241,10 +241,10 @@ AZP.ToolTips.LegendaryItemUpgrades =
     -------------------------------------
     ---------- Legendary Items ----------
     -------------------------------------
-    [6716] = {1, 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount =  750, 6717},
-    [6717] = {2, 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount = 1200, 6718},
-    [6718] = {3, 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount = 1950, 6758},
-    [6758] = {4, 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount = 1100, 7450},
-    [7450] = {5, 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount =  550, 7451},
-    [7451] = {6, 6, nil, nil},
+    [6716] = {CurRank = 1, NextRankID = 6717, MaxRank = 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount =  750},
+    [6717] = {CurRank = 2, NextRankID = 6718, MaxRank = 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount = 1200},
+    [6718] = {CurRank = 3, NextRankID = 6758, MaxRank = 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount = 1950},
+    [6758] = {CurRank = 4, NextRankID = 7450, MaxRank = 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount = 1100},
+    [7450] = {CurRank = 5, NextRankID = 7451, MaxRank = 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount =  550},
+    [7451] = {CurRank = 6, NextRankID =  nil, MaxRank = 6, Icon = nil,                                 Amount = nil},
 }
