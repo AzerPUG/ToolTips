@@ -18,6 +18,10 @@ AZP.ToolTips.Currencies = {
     {
         ["Icon"] = "\124T3743738:12\124t"
     },
+    ["SoulCinders"] =
+    {
+        ["Icon"] = "\124T4067362:12\124t"
+    },
     ["CataloggedResearch"] =
     {
         ["Icon"] = "\124T1506458:12\124t"
@@ -237,8 +241,10 @@ AZP.ToolTips.LegendaryItemUpgrades =
     -------------------------------------
     ---------- Legendary Items ----------
     -------------------------------------
-    [6716] = {750, 1, 4, AZP.ToolTips.Currencies.SoulAsh, 6717},
-    [6717] = {1200, 2, 3, AZP.ToolTips.Currencies.SoulAsh, 6718},
-    [6718] = {1950, 3, 4, AZP.ToolTips.Currencies.SoulAsh, 6758},
-    [6758] = {nil, 4, 5, AZP.ToolTips.Currencies.SoulAsh, nil}
+    [6716] = {1, 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount =  750, 6717},
+    [6717] = {2, 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount = 1200, 6718},
+    [6718] = {3, 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount = 1950, 6758},
+    [6758] = {4, 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount = 1100, 7450},
+    [7450] = {5, 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount =  550, 7451},
+    [7451] = {6, 6, nil, nil},
 }
