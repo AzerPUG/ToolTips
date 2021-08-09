@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 36
+AZP.VersionControl["ToolTips"] = 37
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 
@@ -173,17 +173,17 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
     end
 end
 
-function AZP.ToolTips:SetLegendaryToolTip(upgradeInfo)
-    local currentLevel = upgradeInfo
+function AZP.ToolTips:SetLegendaryToolTip(inputValue)   -- InputValue was called UpgradeInfo but that was used later in the fuinction as well as local.
+    local currentLevel = inputValue
     local currencies = {}
-    currencies[1] = {Icon = upgradeInfo.Icon, Amount = upgradeInfo.Amount}
+    currencies[1] = {Icon = inputValue.Icon, Amount = inputValue.Amount}
     local NextRank = nil
-    
-    local currentBonusID = upgradeInfo.NextRankID
-    while currentBonusID ~= nil do
-        local upgradeInfo = AZP.ToolTips.LegendaryItemUpgrades[currentBonusID]
+
+    local nextBonusID = inputValue.NextRankID
+    while nextBonusID ~= nil do
+        local upgradeInfo = AZP.ToolTips.LegendaryItemUpgrades[nextBonusID]
         if upgradeInfo == nil then return nil end
-        currentBonusID = upgradeInfo.NextRankID
+        nextBonusID = upgradeInfo.NextRankID
         if NextRank == nil then
             NextRank = upgradeInfo.CurRank
         end
@@ -193,7 +193,7 @@ function AZP.ToolTips:SetLegendaryToolTip(upgradeInfo)
         if currencies[1].Icon == upgradeInfo.Icon then
             currencies[1].Amount = currencies[1].Amount + upgradeInfo.Amount
         else
-            if currencies[2] == nil then 
+            if currencies[2] == nil then
                 currencies[2] = {Icon = upgradeInfo.Icon, Amount = upgradeInfo.Amount}
             else
                 currencies[2].Amount = currencies[2].Amount + upgradeInfo.Amount
@@ -201,13 +201,14 @@ function AZP.ToolTips:SetLegendaryToolTip(upgradeInfo)
         end
     end
 
-    local totalCostString = string.format("%d %s", upgradeInfo.Amount, upgradeInfo.Icon.Icon)
+    local totalCostString = string.format("%d %s", currencies[1].Amount, inputValue.Icon.Icon)
     if #currencies > 1 then 
         totalCostString = string.format("%s, %d %s", totalCostString, currencies[2].Amount, currencies[2].Icon.Icon)
     end
 
-    GameTooltip:AddLine(string.format("Rank %d: %d %s  (Next)", currentLevel.CurRank, currentLevel.Amount, currentLevel.Icon.Icon))
-    GameTooltip:AddLine(string.format("Rank %d: %s  (Max)", currentLevel.MaxRank, totalCostString))
+    GameTooltip:AddLine(" ")
+    GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", currentLevel.CurRank + 1, currentLevel.Amount, currentLevel.Icon.Icon))
+    GameTooltip:AddLine(string.format("Rank %d: %s (Max)", currentLevel.MaxRank, totalCostString))
 end
 
 function AZP.ToolTips:StackUpgradeCosts(itemTable, startID)
