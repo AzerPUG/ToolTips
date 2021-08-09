@@ -246,5 +246,5 @@ AZP.ToolTips.LegendaryItemUpgrades =
     [6718] = {CurRank = 3, NextRankID = 6758, MaxRank = 6, Icon =     AZP.ToolTips.Currencies.SoulAsh, Amount = 1950},
     [6758] = {CurRank = 4, NextRankID = 7450, MaxRank = 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount = 1100},
     [7450] = {CurRank = 5, NextRankID = 7451, MaxRank = 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount =  550},
-    [7451] = {CurRank = 6, NextRankID =  nil, MaxRank = 6, Icon = nil,                                 Amount = nil},
+    [7451] = {CurRank = 6, NextRankID =  nil, MaxRank = 6, Icon = nil,                                 Amount =  nil},
 }
