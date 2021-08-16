@@ -248,3 +248,87 @@ AZP.ToolTips.LegendaryItemUpgrades =
     [7450] = {CurRank = 5, NextRankID = 7451, MaxRank = 6, Icon = AZP.ToolTips.Currencies.SoulCinders, Amount =  550},
     [7451] = {CurRank = 6, NextRankID =  nil, MaxRank = 6, Icon = nil,                                 Amount =  nil},
 }
+
+AZP.ToolTips.ShardUpgrades =
+{
+    -------------------------------------
+    ------------ Shard of Bek -----------
+    -------------------------------------
+    [187057] = {CurRank = 1, NextRankID = 187284, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187284] = {CurRank = 2, NextRankID = 187293, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187293] = {CurRank = 3, NextRankID = 187302, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187302] = {CurRank = 4, NextRankID = 187312, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187312] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+
+    -------------------------------------
+    ------------ Shard of Jas -----------
+    -------------------------------------
+    [187059] = {CurRank = 1, NextRankID = 187285, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187285] = {CurRank = 2, NextRankID = 187294, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187294] = {CurRank = 3, NextRankID = 187303, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187303] = {CurRank = 4, NextRankID = 187313, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187313] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+
+    -------------------------------------
+    ------------ Shard of Rev -----------
+    -------------------------------------
+    [187061] = {CurRank = 1, NextRankID = 187286, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187286] = {CurRank = 2, NextRankID = 187295, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187295] = {CurRank = 3, NextRankID = 187304, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187304] = {CurRank = 4, NextRankID = 187314, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187314] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+
+    -------------------------------------
+    ------------ Shard of Cor -----------
+    -------------------------------------
+    [187063] = {CurRank = 1, NextRankID = 187287, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187287] = {CurRank = 2, NextRankID = 187296, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187296] = {CurRank = 3, NextRankID = 187305, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187305] = {CurRank = 4, NextRankID = 187315, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187315] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+
+    -------------------------------------
+    ------------ Shard of Kyr -----------
+    -------------------------------------
+    [187065] = {CurRank = 1, NextRankID = 187288, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187288] = {CurRank = 2, NextRankID = 187297, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187297] = {CurRank = 3, NextRankID = 187306, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187306] = {CurRank = 4, NextRankID = 187316, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187316] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+
+    -------------------------------------
+    ------------ Shard of Tel -----------
+    -------------------------------------
+    [187071] = {CurRank = 1, NextRankID = 187289, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187289] = {CurRank = 2, NextRankID = 187298, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187298] = {CurRank = 3, NextRankID = 187307, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187307] = {CurRank = 4, NextRankID = 187317, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187317] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+
+    -------------------------------------
+    ------------ Shard of Dyz -----------
+    -------------------------------------
+    [187073] = {CurRank = 1, NextRankID = 187290, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187290] = {CurRank = 2, NextRankID = 187299, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187299] = {CurRank = 3, NextRankID = 187308, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187308] = {CurRank = 4, NextRankID = 187318, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187318] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+
+    -------------------------------------
+    ------------ Shard of Oth -----------
+    -------------------------------------
+    [187076] = {CurRank = 1, NextRankID = 187291, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187291] = {CurRank = 2, NextRankID = 187300, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187300] = {CurRank = 3, NextRankID = 187309, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187309] = {CurRank = 4, NextRankID = 187319, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187319] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+
+    -------------------------------------
+    ------------ Shard of Zed -----------
+    -------------------------------------
+    [187079] = {CurRank = 1, NextRankID = 187292, MaxRank = 5, Icon = nil, Amount =   5,},
+    [187292] = {CurRank = 2, NextRankID = 187301, MaxRank = 5, Icon = nil, Amount =  15,},
+    [187301] = {CurRank = 3, NextRankID = 187310, MaxRank = 5, Icon = nil, Amount =  30,},
+    [187310] = {CurRank = 4, NextRankID = 187320, MaxRank = 5, Icon = nil, Amount =  50,},
+    [187320] = {CurRank = 5, NextRankID = nil,    MaxRank = 5, Icon = nil, Amount = nil,},
+}

@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 38
+AZP.VersionControl["ToolTips"] = 39
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 
@@ -14,6 +14,7 @@ function AZP.ToolTips:OnLoadBoth()
     GameTooltip:HookScript("OnTooltipSetItem", function(...)
         AZP.ToolTips:SearchGenericUpgradeableItem()
         AZP.ToolTips:CheckShadowlandsLegendaryItem()
+        AZP.ToolTips:CheckDominationShardItem()
     end)
 end
 
@@ -173,7 +174,7 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
     end
 end
 
-function AZP.ToolTips:SetLegendaryToolTip(inputValue)   -- InputValue was called UpgradeInfo but that was used later in the fuinction as well as local.
+function AZP.ToolTips:SetLegendaryToolTip(inputValue)   -- InputValue was called UpgradeInfo but that was used later in the function as well as local.
     local currentLevel = inputValue
     local currencies = {}
     currencies[1] = {Icon = inputValue.Icon, Amount = inputValue.Amount}
@@ -202,13 +203,43 @@ function AZP.ToolTips:SetLegendaryToolTip(inputValue)   -- InputValue was called
     end
 
     local totalCostString = string.format("%d %s", currencies[1].Amount, inputValue.Icon.Icon)
-    if #currencies > 1 then 
+    if #currencies > 1 then
         totalCostString = string.format("%s, %d %s", totalCostString, currencies[2].Amount, currencies[2].Icon.Icon)
     end
 
     GameTooltip:AddLine(" ")
     GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", currentLevel.CurRank + 1, currentLevel.Amount, currentLevel.Icon.Icon))
     GameTooltip:AddLine(string.format("Rank %d: %s (Max)", currentLevel.MaxRank, totalCostString))
+end
+
+function AZP.ToolTips:CheckDominationShardItem()
+    local _, itemLink = GameTooltip:GetItem()
+    local itemString = itemLink:gsub("|", "-")
+    local _, itemID = strsplit(":", itemString)
+    itemID = tonumber(itemID)
+
+    local shardInfo = AZP.ToolTips.ShardUpgrades[itemID]
+    if shardInfo ~= nil then
+        local curRank = shardInfo.CurRank
+        local maxRank = shardInfo.MaxRank
+
+        local ttname = GameTooltip:GetName()
+        for i = 1, GameTooltip:NumLines() do
+            if i == 2 then
+                local left = _G[ttname .. "TextLeft" .. i]
+                local text = left:GetText()
+                left:SetText(text .. "  |cFF00FFFFUpgrade Level: " .. curRank .. "/" .. maxRank .. "|r")
+            end
+        end
+
+        if curRank < maxRank then
+            local upgradeAmount = shardInfo.Amount
+            local totalAmount = AZP.ToolTips:StackUpgradeCosts(AZP.ToolTips.ShardUpgrades, itemID)
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", curRank + 1, upgradeAmount, "Stygian Embers"))
+            GameTooltip:AddLine(string.format("Rank %d: %d %s (Max)", maxRank, totalAmount, "Stygian Embers"))
+        end
+    end
 end
 
 function AZP.ToolTips:StackUpgradeCosts(itemTable, startID)
