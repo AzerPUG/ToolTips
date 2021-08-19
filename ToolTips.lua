@@ -232,12 +232,18 @@ function AZP.ToolTips:CheckDominationShardItem()
             end
         end
 
+        local Icon = AZP.ToolTips.ShardUpgrades[itemID].Icon.Icon
+
         if curRank < maxRank then
             local upgradeAmount = shardInfo.Amount
             local totalAmount = AZP.ToolTips:StackUpgradeCosts(AZP.ToolTips.ShardUpgrades, itemID)
             GameTooltip:AddLine(" ")
-            GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", curRank + 1, upgradeAmount, "Stygian Embers"))
-            GameTooltip:AddLine(string.format("Rank %d: %d %s (Max)", maxRank, totalAmount, "Stygian Embers"))
+            if maxRank - curRank > 0 then
+                GameTooltip:AddLine(string.format("Rank %d: %d %s (Max)", maxRank, totalAmount, Icon))
+                if maxRank - curRank > 1 then
+                    GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", curRank + 1, upgradeAmount, Icon))
+                end
+            end
         end
     end
 end
