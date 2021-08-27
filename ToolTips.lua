@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 40
+AZP.VersionControl["ToolTips"] = 41
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 
@@ -161,7 +161,7 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
 
             local displayIcon = ""
             if curToolTipItem.Icon ~= nil then
-                displayIcon = curToolTipItem.Icon.Icon
+                displayIcon = curToolTipItem.Icon
             end
 
             local separator = AZPTTSeparator
@@ -202,13 +202,13 @@ function AZP.ToolTips:SetLegendaryToolTip(inputValue)   -- InputValue was called
         end
     end
 
-    local totalCostString = string.format("%d %s", currencies[1].Amount, inputValue.Icon.Icon)
+    local totalCostString = string.format("%d %s", currencies[1].Amount, inputValue.Icon)
     if #currencies > 1 then
-        totalCostString = string.format("%s, %d %s", totalCostString, currencies[2].Amount, currencies[2].Icon.Icon)
+        totalCostString = string.format("%s, %d %s", totalCostString, currencies[2].Amount, currencies[2].Icon)
     end
 
     GameTooltip:AddLine(" ")
-    GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", currentLevel.CurRank + 1, currentLevel.Amount, currentLevel.Icon.Icon))
+    GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", currentLevel.CurRank + 1, currentLevel.Amount, currentLevel.Icon))
     GameTooltip:AddLine(string.format("Rank %d: %s (Max)", currentLevel.MaxRank, totalCostString))
 end
 
@@ -232,7 +232,7 @@ function AZP.ToolTips:CheckDominationShardItem()
             end
         end
 
-        local Icon = AZP.ToolTips.ShardUpgrades[itemID].Icon.Icon
+        local Icon = AZP.ToolTips.ShardUpgrades[itemID].Icon
 
         if curRank < maxRank then
             local upgradeAmount = shardInfo.Amount

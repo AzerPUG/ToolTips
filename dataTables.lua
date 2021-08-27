@@ -2,34 +2,13 @@ if AZP == nil then AZP = {} end
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
 AZP.ToolTips.Currencies = {
-    ["Valor"] =
-    {
-        ["Icon"] = "\124T463447:14\124t"
-    },
-    ["Honor"] =
-    {
-        ["Icon"] = "\124T1455894:14\124t"
-    },
-    ["Anima"] =
-    {
-        ["Icon"] = "\124T3528288:14\124t"
-    },
-    ["SoulAsh"] =
-    {
-        ["Icon"] = "\124T3743738:14\124t"
-    },
-    ["SoulCinders"] =
-    {
-        ["Icon"] = "\124T4067362:14\124t"
-    },
-    ["CataloggedResearch"] =
-    {
-        ["Icon"] = "\124T1506458:14\124t"
-    },
-    ["StygianEmbers"] =
-    {
-        ["Icon"] = "\124T636333:14\124t"
-    },
+    Valor = "\124T463447:14\124t",
+    Honor ="\124T1455894:14\124t",
+    Anima ="\124T3528288:14\124t",
+    SoulAsh ="\124T3743738:14\124t",
+    SoulCinders ="\124T4067362:14\124t",
+    CataloggedResearch ="\124T1506458:14\124t",
+    StygianEmbers ="\124T636333:14\124t",
 }
 
 AZP.ToolTips.ItemUpgrades =
