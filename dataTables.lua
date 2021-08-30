@@ -1,14 +1,17 @@
 if AZP == nil then AZP = {} end
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
-AZP.ToolTips.Currencies = {
-    Valor = "\124T463447:14\124t",
-    Honor ="\124T1455894:14\124t",
-    Anima ="\124T3528288:14\124t",
-    SoulAsh ="\124T3743738:14\124t",
-    SoulCinders ="\124T4067362:14\124t",
-    CataloggedResearch ="\124T1506458:14\124t",
-    StygianEmbers ="\124T636333:14\124t",
+local StartString, EndString = "\124T", ":14\124t"
+
+AZP.ToolTips.Currencies =
+{
+                 Valor = string.format("%s%d%s", StartString,  463447, EndString),
+                 Honor = string.format("%s%d%s", StartString, 1455894, EndString),
+                 Anima = string.format("%s%d%s", StartString, 3528288, EndString),
+               SoulAsh = string.format("%s%d%s", StartString, 3743738, EndString),
+           SoulCinders = string.format("%s%d%s", StartString, 4067362, EndString),
+    CataloggedResearch = string.format("%s%d%s", StartString, 1506458, EndString),
+         StygianEmbers = string.format("%s%d%s", StartString,  636333, EndString),
 }
 
 AZP.ToolTips.ItemUpgrades =
