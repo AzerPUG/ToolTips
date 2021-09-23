@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 42
+AZP.VersionControl["ToolTips"] = 43
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 
@@ -160,17 +160,18 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
                     end
                 end
             end
+            if curToolTipItem ~= nil then
+                local displayIcon = ""
+                if curToolTipItem.Icon ~= nil then
+                    displayIcon = curToolTipItem.Icon
+                end
 
-            local displayIcon = ""
-            if curToolTipItem.Icon ~= nil then
-                displayIcon = curToolTipItem.Icon
-            end
-
-            local separator = AZPTTSeparator
-            if curToolTipItem.Amount ~= nil then
-                left:SetText(text .. "  |cFF00FFFF(" .. curToolTipItem.Amount .. displayIcon .. " " .. separator .. " " .. priceToMax .. displayIcon .. ")|r")
-            elseif curToolTipItem.MaxRank == nil then
-                left:SetText(text .. "  |cFF00FFFF(Coming Soon™!)|r")
+                local separator = AZPTTSeparator
+                if curToolTipItem.Amount ~= nil then
+                    left:SetText(text .. "  |cFF00FFFF(" .. curToolTipItem.Amount .. displayIcon .. " " .. separator .. " " .. priceToMax .. displayIcon .. ")|r")
+                elseif curToolTipItem.MaxRank == nil then
+                    left:SetText(text .. "  |cFF00FFFF(Coming Soon™!)|r")
+                end
             end
         end
     end
