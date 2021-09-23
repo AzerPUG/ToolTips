@@ -122,13 +122,15 @@ end
 
 function AZP.ToolTips:GetLegendaryUpgradeInfo()
     local _, itemLink = GameTooltip:GetItem()
-    local NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = select(13, strsplit(":", itemLink))
-    local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
-    if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
-        for j = 1, tonumber(NumBonusIDs) do
-            local CurrentItem = AZP.ToolTips.LegendaryItemUpgrades[bonusIDList[j]]
-            if CurrentItem ~= nil then
-                return CurrentItem
+    if itemLink ~= nil then
+        local NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = select(13, strsplit(":", itemLink))
+        local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
+        if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
+            for j = 1, tonumber(NumBonusIDs) do
+                local CurrentItem = AZP.ToolTips.LegendaryItemUpgrades[bonusIDList[j]]
+                if CurrentItem ~= nil then
+                    return CurrentItem
+                end
             end
         end
     end
@@ -214,34 +216,36 @@ end
 
 function AZP.ToolTips:CheckDominationShardItem()
     local _, itemLink = GameTooltip:GetItem()
-    local itemString = itemLink:gsub("|", "-")
-    local _, itemID = strsplit(":", itemString)
-    itemID = tonumber(itemID)
+    if itemLink ~= nil then
+        local itemString = itemLink:gsub("|", "-")
+        local _, itemID = strsplit(":", itemString)
+        itemID = tonumber(itemID)
 
-    local shardInfo = AZP.ToolTips.ShardUpgrades[itemID]
-    if shardInfo ~= nil then
-        local curRank = shardInfo.CurRank
-        local maxRank = shardInfo.MaxRank
+        local shardInfo = AZP.ToolTips.ShardUpgrades[itemID]
+        if shardInfo ~= nil then
+            local curRank = shardInfo.CurRank
+            local maxRank = shardInfo.MaxRank
 
-        local ttname = GameTooltip:GetName()
-        for i = 1, GameTooltip:NumLines() do
-            if i == 2 then
-                local left = _G[ttname .. "TextLeft" .. i]
-                local text = left:GetText()
-                left:SetText(text .. "  |cFF00FFFFUpgrade Level: " .. curRank .. "/" .. maxRank .. "|r")
+            local ttname = GameTooltip:GetName()
+            for i = 1, GameTooltip:NumLines() do
+                if i == 2 then
+                    local left = _G[ttname .. "TextLeft" .. i]
+                    local text = left:GetText()
+                    left:SetText(text .. "  |cFF00FFFFUpgrade Level: " .. curRank .. "/" .. maxRank .. "|r")
+                end
             end
-        end
 
-        local Icon = AZP.ToolTips.ShardUpgrades[itemID].Icon
+            local Icon = AZP.ToolTips.ShardUpgrades[itemID].Icon
 
-        if curRank < maxRank then
-            local upgradeAmount = shardInfo.Amount
-            local totalAmount = AZP.ToolTips:StackUpgradeCosts(AZP.ToolTips.ShardUpgrades, itemID)
-            GameTooltip:AddLine(" ")
-            if maxRank - curRank > 0 then
-                GameTooltip:AddLine(string.format("Rank %d: %d %s (Max)", maxRank, totalAmount, Icon))
-                if maxRank - curRank > 1 then
-                    GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", curRank + 1, upgradeAmount, Icon))
+            if curRank < maxRank then
+                local upgradeAmount = shardInfo.Amount
+                local totalAmount = AZP.ToolTips:StackUpgradeCosts(AZP.ToolTips.ShardUpgrades, itemID)
+                GameTooltip:AddLine(" ")
+                if maxRank - curRank > 0 then
+                    GameTooltip:AddLine(string.format("Rank %d: %d %s (Max)", maxRank, totalAmount, Icon))
+                    if maxRank - curRank > 1 then
+                        GameTooltip:AddLine(string.format("Rank %d: %d %s (Next)", curRank + 1, upgradeAmount, Icon))
+                    end
                 end
             end
         end
