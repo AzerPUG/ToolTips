@@ -99,6 +99,38 @@ function AZP.ToolTips:FillOptionsPanel(frameToFill)
     frameToFill.SeparatorEdit:SetFontObject("ChatFontNormal")
     frameToFill.SeparatorEdit:SetMaxLetters(100)
 
+    frameToFill.OBracketEdit = CreateFrame("EditBox", nil, frameToFill, "InputBoxTemplate")
+    frameToFill.OBracketEdit:SetSize(100, 25)
+    frameToFill.OBracketEdit:SetPoint("TOPLEFT", 100, -200)
+    frameToFill.OBracketEdit:SetAutoFocus(false)
+    frameToFill.OBracketEdit:SetScript("OnShow", function ()
+        frameToFill.OBracketEdit:SetText(AZPTTBrackets[1])
+    end)
+    frameToFill.OBracketText = frameToFill:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    frameToFill.OBracketText:SetSize(100, 25)
+    frameToFill.OBracketText:SetPoint("TOPLEFT", 0, -200)
+    frameToFill.OBracketText:SetText("Opening Bracket: ")
+    frameToFill.OBracketEdit:SetScript("OnEditFocusLost", function() AZPTTBrackets[1] = frameToFill.OBracketEdit:GetText() end)
+    frameToFill.OBracketEdit:SetFrameStrata("DIALOG")
+    frameToFill.OBracketEdit:SetFontObject("ChatFontNormal")
+    frameToFill.OBracketEdit:SetMaxLetters(100)
+
+    frameToFill.CBracketEdit = CreateFrame("EditBox", nil, frameToFill, "InputBoxTemplate")
+    frameToFill.CBracketEdit:SetSize(100, 25)
+    frameToFill.CBracketEdit:SetPoint("TOPLEFT", 100, -300)
+    frameToFill.CBracketEdit:SetAutoFocus(false)
+    frameToFill.CBracketEdit:SetScript("OnShow", function ()
+        frameToFill.CBracketEdit:SetText(AZPTTBrackets[2])
+    end)
+    frameToFill.CBracketText = frameToFill:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    frameToFill.CBracketText:SetSize(100, 25)
+    frameToFill.CBracketText:SetPoint("TOPLEFT", 0, -300)
+    frameToFill.CBracketText:SetText("Closing Bracket: ")
+    frameToFill.CBracketEdit:SetScript("OnEditFocusLost", function() AZPTTBrackets[2] = frameToFill.CBracketEdit:GetText() end)
+    frameToFill.CBracketEdit:SetFrameStrata("DIALOG")
+    frameToFill.CBracketEdit:SetFontObject("ChatFontNormal")
+    frameToFill.CBracketEdit:SetMaxLetters(100)
+
     frameToFill:Hide()
 end
 
@@ -167,8 +199,9 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
                 end
 
                 local separator = AZPTTSeparator
+                local OBracket, CBracker = AZPTTBrackets[1], AZPTTBrackets[2]
                 if curToolTipItem.Amount ~= nil then
-                    left:SetText(text .. "  |cFF00FFFF(" .. curToolTipItem.Amount .. displayIcon .. " " .. separator .. " " .. priceToMax .. displayIcon .. ")|r")
+                    left:SetText(text .. "  |cFF00FFFF" .. OBracket .. curToolTipItem.Amount .. displayIcon .. " " .. separator .. " " .. priceToMax .. displayIcon .. CBracker .. "|r")
                 elseif curToolTipItem.MaxRank == nil then
                     left:SetText(text .. "  |cFF00FFFF(Coming Soon™!)|r")
                 end
@@ -335,9 +368,10 @@ end
 
 function AZP.ToolTips.Events:AddonLoaded(addonName)
     if addonName == "AzerPUGsToolTips" then
-        if AZPTTSeparator == nil then
-            AZPTTSeparator = "/"
-        end
+        if AZPTTSeparator == nil then AZPTTSeparator = "/" end
+        if AZPTTBrackets == nil then AZPTTBrackets = {} end
+        if AZPTTBrackets[1] == nil then AZPTTBrackets[1] = "(" end
+        if AZPTTBrackets[2] == nil then AZPTTBrackets[2] = ")" end
     end
 end
 

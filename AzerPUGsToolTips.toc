@@ -18,7 +18,7 @@
 ## Notes-ptBR: As dicas de ferramentas do AzerPUG adicionam informações úteis às dicas de itens específicos.
 
 ## Version: SL 9.1 (For actual addon version, check ToolTips.lua)
-## SavedVariables: AZPTTSeparator
+## SavedVariables: AZPTTSeparator AZPTTBrackets
 
 dataTables.lua
 SlashCommands.lua
