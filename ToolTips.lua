@@ -16,6 +16,18 @@ function AZP.ToolTips:OnLoadBoth()
         AZP.ToolTips:CheckShadowlandsLegendaryItem()
         AZP.ToolTips:CheckDominationShardItem()
     end)
+    -- GameTooltip:HookScript("OnTooltip", function(...)
+    --     --AZP.ToolTips:CheckStatsToolTips()
+    -- end)
+    -- GameTooltip:HookScript("OnTooltipSetItem", function(...) print("Item ToolTip") end)
+    -- GameTooltip:HookScript("OnTooltipSetQuest", function(...) print("Quest ToolTip") end)
+    -- GameTooltip:HookScript("OnTooltipSetSpell", function(...) print("Spell ToolTip") end)   -- Mastery == Spell
+    -- GameTooltip:HookScript("OnTooltipSetUnit", function(...) print("Unit ToolTip") end)
+    -- GameTooltip:HookScript("OnTooltipSetAchievement", function(...) print("Achie ToolTip") end)
+    -- GameTooltip:HookScript("OnTooltipSetDefaultAnchor", function(...) print("DefaultAnchor ToolTip") end)
+    -- GameTooltip:HookScript("OnTooltipSetEquipmentSet", function(...) print("EquipSet ToolTip") end)
+    -- GameTooltip:HookScript("OnTooltipSetFramestack", function(...) print("FrameStack ToolTip") end)
+    GameTooltip:HookScript("OnShow", function(...) AZP.ToolTips:CheckStatsToolTips() end)
 end
 
 function AZP.ToolTips:OnLoadCore()
@@ -147,6 +159,40 @@ function AZP.ToolTips:CheckShadowlandsLegendaryItem()
                 if upgradeInfo.NextRankID ~= nil then
                     AZP.ToolTips:SetLegendaryToolTip(upgradeInfo)
                 end
+            end
+        end
+    end
+end
+
+function AZP.ToolTips:CheckStatsToolTips()
+    local searchValue = "%[([^%]]*)%]"
+    --STAT_HASTE_BASE_TOOLTIP, STAT_MASTERY_TOOLTIP, CR_VERSATILITY_TOOLTIP
+
+    --local leftText = _G["GameTooltipTextLeft1"]:GetText()
+    
+    
+
+    -- check if search value is in there.
+    -- if true, get part between [ and %
+    -- put to number for stuffs.
+
+    local ttname = GameTooltip:GetName()
+    -- print(GameTooltip:NumLines())
+    for i = 1, GameTooltip:NumLines() do
+        local left = _G[ttname .. "TextLeft" .. i]
+        local right = _G[ttname .. "TextRight" .. i]
+        local ltext = left:GetText()
+        local rtext = right:GetText()
+        if ltext ~= nil then
+            print("ltext:", ltext)
+            if ltext:match(searchValue) then
+                print("L StatToolTip Found!", searchValue)
+            end
+        end
+        if rtext ~= nil then
+            print("rtext:", rtext)
+            if rtext:match(searchValue) then
+                print("R StatToolTip Found!", searchValue)
             end
         end
     end
