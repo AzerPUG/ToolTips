@@ -27,7 +27,10 @@ function AZP.ToolTips:OnLoadBoth()
     -- GameTooltip:HookScript("OnTooltipSetDefaultAnchor", function(...) print("DefaultAnchor ToolTip") end)
     -- GameTooltip:HookScript("OnTooltipSetEquipmentSet", function(...) print("EquipSet ToolTip") end)
     -- GameTooltip:HookScript("OnTooltipSetFramestack", function(...) print("FrameStack ToolTip") end)
-    GameTooltip:HookScript("OnShow", function(...) AZP.ToolTips:CheckStatsToolTips() end)
+    GameTooltip:HookScript("OnShow", function(...) AZP.ToolTips:CheckStatsToolTips() end)    
+    
+    STAT_HASTE_BASE_TOOLTIP = STAT_HASTE_BASE_TOOLTIP .. "\nLiefuh Frientjuh!"
+
 end
 
 function AZP.ToolTips:OnLoadCore()
@@ -170,7 +173,6 @@ function AZP.ToolTips:CheckStatsToolTips()
 
     --local leftText = _G["GameTooltipTextLeft1"]:GetText()
     
-    
 
     -- check if search value is in there.
     -- if true, get part between [ and %
@@ -184,15 +186,15 @@ function AZP.ToolTips:CheckStatsToolTips()
         local ltext = left:GetText()
         local rtext = right:GetText()
         if ltext ~= nil then
-            print("ltext:", ltext)
+            --print("ltext:", ltext)
             if ltext:match(searchValue) then
-                print("L StatToolTip Found!", searchValue)
+                --print("L StatToolTip Found!", searchValue)
             end
         end
         if rtext ~= nil then
-            print("rtext:", rtext)
+            --print("rtext:", rtext)
             if rtext:match(searchValue) then
-                print("R StatToolTip Found!", searchValue)
+                --print("R StatToolTip Found!", searchValue)
             end
         end
     end
