@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 45
+AZP.VersionControl["ToolTips"] = 46
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 
@@ -16,6 +16,11 @@ function AZP.ToolTips:OnLoadBoth()
         AZP.ToolTips:CheckShadowlandsLegendaryItem()
         AZP.ToolTips:CheckDominationShardItem()
     end)
+
+    ITEM_CREATED_BY= ""
+    --"|cFF00FFFFCreated By: Awesome Tex|r"    --Make option in option panel to do nothing, or add different name (if name == empty then removed)
+        -- Color work, maybe make it so people can chose the color as well as the name color different.
+        -- Maybe class colors?
 end
 
 function AZP.ToolTips:OnLoadCore()
