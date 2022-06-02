@@ -1,4 +1,4 @@
-## Interface: 90200
+## Interface: 90205
 ## Title: |cFF00FFFFAzerPUG's|r |cFFFF00FFToolTips|r
 ## Author: Tex & AzerPUG Gaming Community (www.azerpug.com/discord)
 ## OptionalDeps: AzerPUGsCore
@@ -17,7 +17,7 @@
 ## Notes-esMX: La información sobre herramientas de AzerPUG agrega información útil a la información sobre herramientas de elementos específicos.
 ## Notes-ptBR: As dicas de ferramentas do AzerPUG adicionam informações úteis às dicas de itens específicos.
 
-## Version: SL 9.1 (For actual addon version, check ToolTips.lua)
+## Version: SL 9.2.5 (For actual addon version, check ToolTips.lua)
 ## SavedVariables: AZPTTSeparator AZPTTBrackets
 
 dataTables.lua
