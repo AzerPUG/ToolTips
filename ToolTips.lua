@@ -11,7 +11,7 @@ local HaveShowedUpdateNotification = false
 local AZPTTSelfOptionPanel = nil
 
 function AZP.ToolTips:OnLoadBoth()
-    GameTooltip:HookScript("OnTooltipSetItem", function(...)
+    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(...)
         AZP.ToolTips:SearchGenericUpgradeableItem()
         AZP.ToolTips:CheckShadowlandsLegendaryItem()
         AZP.ToolTips:CheckDominationShardItem()
@@ -177,6 +177,13 @@ end
 function AZP.ToolTips:SearchGenericUpgradeableItem()
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
+    local _, itemLink = GameTooltip:GetItem()
+
+    local itemID, _, _, itemEquipLoc = GetItemInfoInstant(itemLink)
+    print(itemID)
+    local result = AZP.ToolTips:GetUpgradeCostForItem(itemLink)
+    print(result)
+
     local ttname = GameTooltip:GetName()
     for i = 1, GameTooltip:NumLines() do
         local left = _G[ttname .. "TextLeft" .. i]
@@ -184,12 +191,14 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
         if text:find(searchValue) then
             local priceToMax, curToolTipItem = nil, nil
             local _, itemLink = GameTooltip:GetItem()
+            AZP.ToolTips:GetUpgradeCostForItem(itemLink)
             local itemString = itemLink:gsub("|", "-")
-
+            print(itemString)
             local _, _, _, _, _, _, _, _, _, _, _, _, _, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
             local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
             if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
                 for j = 1, tonumber(NumBonusIDs) do
+                    print("BonusID:",bonusIDList[j])
                     local curLoopItem = AZP.ToolTips.ItemUpgrades[bonusIDList[j]]
                     if curLoopItem ~= nil then
                         curToolTipItem = curLoopItem
@@ -306,6 +315,27 @@ function AZP.ToolTips:StackUpgradeCosts(itemTable, startID)
     end
 
     return totalCost
+end
+
+function AZP.ToolTips:GetUpgradeCostForItem(itemLink)
+    local itemID, _, _, itemEquipLoc = GetItemInfoInstant(itemLink)
+    print("itemEquipLoc", itemEquipLoc)
+    if itemEquipLoc == "INVTYPE_HEAD" or itemEquipLoc == "INVTYPE_CHEST" or itemEquipLoc == "INVTYPE_LEGS" then
+        return 475
+    elseif itemEquipLoc == "INVTYPE_SHOULDER" or itemEquipLoc == "INVTYPE_WAIST" or itemEquipLoc == "INVTYPE_FEET" or itemEquipLoc == "INVTYPE_HAND" or itemEquipLoc == "INVTYPE_TRINKET" then
+        return 400
+    elseif itemEquipLoc == "INVTYPE_NECK" or itemEquipLoc == "INVTYPE_WRIST" or itemEquipLoc == "INVTYPE_FINGER" or itemEquipLoc == "INVTYPE_BACK"  or itemEquipLoc == "INVTYPE_HOLDABLE" then
+        return 250
+    elseif itemEquipLoc == "INVTYPE_2HWEAPON" then
+        return 1000
+    elseif itemEquipLoc == "INVTYPE_WEAPON" then
+        print("itemID:", itemID)
+        if tContains(AZP.ToolTips.IntWeapons, itemID) then
+            return 750
+        else
+            return 500
+        end
+    end
 end
 
 function AZP.ToolTips:DelayedExecution(delayTime, delayedFunction)

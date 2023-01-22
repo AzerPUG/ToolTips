@@ -14,6 +14,10 @@ AZP.ToolTips.Currencies =
          StygianEmbers = string.format("%s%d%s", StartString,  636333, EndString),
 }
 
+AZP.ToolTips.IntWeapList = {
+    195592, --Stormlash last resort
+}
+
 AZP.ToolTips.ItemUpgrades =
 {
     ---------------------------------
