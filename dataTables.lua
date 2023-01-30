@@ -14,8 +14,48 @@ AZP.ToolTips.Currencies =
          StygianEmbers = string.format("%s%d%s", StartString,  636333, EndString),
 }
 
-AZP.ToolTips.IntWeapList = {
-    195592, --Stormlash last resort
+AZP.ToolTips.WeapValorCostList = {
+    [195592] = 750, --Stormlash last resort
+    [193631] = 500,
+}
+
+AZP.ToolTips.StaticSlotValorCost = {
+    INVTYPE_HEAD = 475,
+    INVTYPE_CHEST = 475,
+    INVTYPE_LEGS = 475,
+    INVTYPE_SHOULDER = 400,
+    INVTYPE_WAIST = 400,
+    INVTYPE_FEET = 400,
+    INVTYPE_HAND = 400,
+    INVTYPE_TRINKET = 400,
+    INVTYPE_NECK = 250,
+    INVTYPE_WRIST = 250,
+    INVTYPE_FINGER = 250,
+    INVTYPE_BACK = 250,
+    INVTYPE_HOLDABLE = 250,
+    INVTYPE_2HWEAPON = 1000,
+    INVTYPE_RANGED = 1000,
+}
+AZP.ToolTips.RankBonusID = {
+    MythicPlus = {
+        Ranks = {
+            [8961] = 1,
+            [8962] = 2,
+            [8963] = 3,
+            [8964] = 4,
+            [8965] = 5,
+            [8966] = 6,
+            [8967] = 7,
+            [8968] = 8,
+            [8969] = 9,
+            [8970] = 10,
+            [8971] = 11,
+            [8972] = 12,
+            [8973] = 13,
+        },
+        MaxRank = 13,
+        Icon = AZP.ToolTips.Currencies.Valor
+    }
 }
 
 AZP.ToolTips.ItemUpgrades =
