@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 55
+AZP.VersionControl["ToolTips"] = 56
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 
@@ -11,11 +11,12 @@ local HaveShowedUpdateNotification = false
 local AZPTTSelfOptionPanel = nil
 
 function AZP.ToolTips:OnLoadBoth()
-    GameTooltip:HookScript("OnTooltipSetItem", function(...)
-        AZP.ToolTips:SearchGenericUpgradeableItem()
-        AZP.ToolTips:CheckShadowlandsLegendaryItem()
-        AZP.ToolTips:CheckDominationShardItem()
-    end)
+    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function() AZP.ToolTips:OnTooltipSetItem() end)
+    -- GameTooltip:HookScript("OnTooltipSetItem", function(...)
+    --     AZP.ToolTips:SearchGenericUpgradeableItem()
+    --     AZP.ToolTips:CheckShadowlandsLegendaryItem()
+    --     AZP.ToolTips:CheckDominationShardItem()
+    -- end)
 
     ITEM_CREATED_BY= ""
     --"|cFF00FFFFCreated By: Awesome Tex|r"    --Make option in option panel to do nothing, or add different name (if name == empty then removed)
@@ -137,6 +138,10 @@ function AZP.ToolTips:FillOptionsPanel(frameToFill)
     frameToFill.CBracketEdit:SetMaxLetters(100)
 
     frameToFill:Hide()
+end
+
+function AZP.ToolTips:OnTooltipSetItem()
+    AZP.ToolTips:SearchGenericUpgradeableItem()
 end
 
 function AZP.ToolTips:CheckShadowlandsLegendaryItem()
