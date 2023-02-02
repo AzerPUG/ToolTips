@@ -9,6 +9,7 @@ if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
 local AZPTTSelfOptionPanel = nil
+local FoundMissingYet = false
 
 function AZP.ToolTips:OnLoadBoth()
      TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(...)
@@ -141,28 +142,23 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
     local _, itemLink = GameTooltip:GetItem()
-
-    local itemID, _, _, _ = GetItemInfoInstant(itemLink)
-    print(itemID)
-    local perLevelUpgradeCost = AZP.ToolTips:GetUpgradeCostForItem(itemLink)
-    print(perLevelUpgradeCost)
-
     local ttname = GameTooltip:GetName()
     for i = 1, GameTooltip:NumLines() do
         local left = _G[ttname .. "TextLeft" .. i]
         local text = left:GetText()
         if text:find(searchValue) then
+            local perLevelUpgradeCost = AZP.ToolTips:GetUpgradeCostForItem(itemLink)
             local priceToMax, Icon = nil, nil
             _, itemLink = GameTooltip:GetItem()
             AZP.ToolTips:GetUpgradeCostForItem(itemLink)
             local itemString = itemLink:gsub("|", "-")
-            print(itemString)
+            -- print(itemString)
             local _, _, _, _, _, _, _, _, _, _, _, _, _, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
             local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
 
             if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
                 for j = 1, tonumber(NumBonusIDs) do
-                    print("BonusID:",bonusIDList[j])
+                    -- print("BonusID:",bonusIDList[j])
 
                     for sort, IDs in pairs(AZP.ToolTips.RankBonusID) do
                         local currentRank = IDs.Ranks[bonusIDList[j]]
@@ -173,7 +169,7 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
                     end
                 end
             end
-            if priceToMax ~= nil then
+            if priceToMax ~= nil and priceToMax ~= 0 then
                 local displayIcon = ""
                 if Icon ~= nil then
                     displayIcon = Icon
@@ -207,10 +203,19 @@ end
 
 function AZP.ToolTips:GetUpgradeCostForItem(itemLink)
     local itemID, _, _, itemEquipLoc = GetItemInfoInstant(itemLink)
-    print("itemEquipLoc", itemEquipLoc)
+    -- print("itemEquipLoc", itemEquipLoc)
     if itemEquipLoc == "INVTYPE_WEAPON" then
-        print("Weapon ID", itemID)
-        return AZP.ToolTips.WeapValorCostList[itemID]
+        -- print("Weapon ID", itemID)
+        local weaponCost = AZP.ToolTips.WeapValorCostList[itemID]
+        if weaponCost ~= nil then
+            return weaponCost
+        elseif FoundMissingYet == false then
+            FoundMissingYet = true
+            print("Missing Weapon ID:", itemID, ", For item:", itemLink, ". Please report to AzerPUG discord.")
+            return 0
+        else
+            return 0
+        end
     else
         return AZP.ToolTips.StaticSlotValorCost[itemEquipLoc]
     end
