@@ -2,7 +2,6 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["ToolTips"] = 56
 AZP.VersionControl["ToolTips"] = 57
 if AZP.ToolTips == nil then AZP.ToolTips = {} end
 if AZP.ToolTips.Events == nil then AZP.ToolTips.Events = {} end
@@ -13,20 +12,9 @@ local AZPTTSelfOptionPanel = nil
 local FoundMissingYet = false
 
 function AZP.ToolTips:OnLoadBoth()
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function() AZP.ToolTips:OnTooltipSetItem() end)
-    -- GameTooltip:HookScript("OnTooltipSetItem", function(...)
-    --     AZP.ToolTips:SearchGenericUpgradeableItem()
-    --     AZP.ToolTips:CheckShadowlandsLegendaryItem()
-    --     AZP.ToolTips:CheckDominationShardItem()
-    -- end)
-     TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(...)
-        AZP.ToolTips:SearchGenericUpgradeableItem()
-    end)
+    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(...) AZP.ToolTips:SearchGenericUpgradeableItem() end)
 
     ITEM_CREATED_BY= ""
-    --"|cFF00FFFFCreated By: Tex|r"    --Make option in option panel to do nothing, or add different name (if name == empty then removed)
-        -- Color work, maybe make it so people can chose the color as well as the name color different.
-        -- Maybe class colors?
 end
 
 function AZP.ToolTips:OnLoadCore()
@@ -145,45 +133,6 @@ function AZP.ToolTips:FillOptionsPanel(frameToFill)
     frameToFill:Hide()
 end
 
-function AZP.ToolTips:OnTooltipSetItem()
-    AZP.ToolTips:SearchGenericUpgradeableItem()
-end
-
-function AZP.ToolTips:CheckShadowlandsLegendaryItem()
-    local searchValue = ITEM_UNIQUE_EQUIPPABLE
-    local ttname = GameTooltip:GetName()
-    for i = 1, GameTooltip:NumLines() do
-        local left = _G[ttname .. "TextLeft" .. i]
-        local text = left:GetText()
-
-        if text:find(searchValue, 1, true)  then
-            local upgradeInfo = AZP.ToolTips:GetLegendaryUpgradeInfo()
-            if upgradeInfo ~= nil then
-                if upgradeInfo.NextRankID ~= nil then
-                    AZP.ToolTips:SetLegendaryToolTip(upgradeInfo)
-                end
-            end
-        end
-    end
-end
-
-function AZP.ToolTips:GetLegendaryUpgradeInfo()
-    local _, itemLink = GameTooltip:GetItem()
-    if itemLink ~= nil then
-        local NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = select(13, strsplit(":", itemLink))
-        local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
-        if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
-            for j = 1, tonumber(NumBonusIDs) do
-                local CurrentItem = AZP.ToolTips.LegendaryItemUpgrades[bonusIDList[j]]
-                if CurrentItem ~= nil then
-                    return CurrentItem
-                end
-            end
-        end
-    end
-    return nil
-end
-
 function AZP.ToolTips:SearchGenericUpgradeableItem()
     local clipAfter = string.find(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d") -1
     local searchValue = string.sub(ITEM_UPGRADE_TOOLTIP_FORMAT, 1, clipAfter)
@@ -198,14 +147,11 @@ function AZP.ToolTips:SearchGenericUpgradeableItem()
             _, itemLink = GameTooltip:GetItem()
             AZP.ToolTips:GetUpgradeCostForItem(itemLink)
             local itemString = itemLink:gsub("|", "-")
-            -- print(itemString)
             local _, _, _, _, _, _, _, _, _, _, _, _, _, NumBonusIDs, BonusID1, BonusID2, BonusID3, BonusID4, BonusID5, BonusID6 = strsplit(":", itemString)
             local bonusIDList = {tonumber(BonusID1), tonumber(BonusID2), tonumber(BonusID3), tonumber(BonusID4), tonumber(BonusID5), tonumber(BonusID6)}
 
             if NumBonusIDs ~= nil and NumBonusIDs ~= "" then
                 for j = 1, tonumber(NumBonusIDs) do
-                    -- print("BonusID:",bonusIDList[j])
-
                     for sort, IDs in pairs(AZP.ToolTips.RankBonusID) do
                         local currentRank = IDs.Ranks[bonusIDList[j]]
                         if currentRank ~= nil then
@@ -249,15 +195,13 @@ end
 
 function AZP.ToolTips:GetUpgradeCostForItem(itemLink)
     local itemID, _, _, itemEquipLoc = GetItemInfoInstant(itemLink)
-    -- print("itemEquipLoc", itemEquipLoc)
     if itemEquipLoc == "INVTYPE_WEAPON" then
-        -- print("Weapon ID", itemID)
         local weaponCost = AZP.ToolTips.WeapValorCostList[itemID]
         if weaponCost ~= nil then
             return weaponCost
         elseif FoundMissingYet == false then
             FoundMissingYet = true
-            print("Missing Weapon ID:", itemID, ", For item:", itemLink, ". Please report it to the AzerPUG discord.")
+            print("Missing Weapon ID:", itemID, ", For item:", itemLink, ". Please report it to the AzerPUG Discord.")
             return 0
         else
             return 0
@@ -286,7 +230,6 @@ function AZP.ToolTips:ShareVersion()    -- Change DelayedExecution to native WoW
     local versionString = string.format("|TT:%d|", AZP.VersionControl["ToolTips"])
     AZP.ToolTips:DelayedExecution(10, function()
         if UnitInBattleground("player") ~= nil then
-            -- BG stuff?
         else
             if IsInGroup() then
                 if IsInRaid() then
