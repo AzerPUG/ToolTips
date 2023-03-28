@@ -3,10 +3,49 @@ if AZP.ToolTips == nil then AZP.ToolTips = {} end
 
 local StartString, EndString = "\124T", ":14\124t"
 
+AZP.ToolTips.PrimalStones =
+{
+    [204018] = {Family = "Arcane", Name = "Humming Arcane Stone"},
+    [204019] = {Family = "Arcane", Name = "Harmonic Music Stone"},
+    [204025] = {Family = "Arcane", Name = "Obscure Pastel Stone"},
+
+    [204006] = {Family = "Earth", Name = "Indomitable Earth Stone"},
+    [204007] = {Family = "Earth", Name = "Shining Obsidian Stone"},
+    [204009] = {Family = "Earth", Name = "Gleaming Iron Stone"},
+
+    [204002] = {Family = "Fire", Name = "Flame Licked Stone"},
+    [204003] = {Family = "Fire", Name = "Raging Magma Stone"},
+    [204004] = {Family = "Fire", Name = "Searing Smokey Stone"},
+    [204005] = {Family = "Fire", Name = "Entropic Fel Stone"},
+
+    [204010] = {Family = "Frost", Name = "Deluging Water Stone"},
+    [204011] = {Family = "Frost", Name = "Freezing Ice Stone"},
+    [204012] = {Family = "Frost", Name = "Cold Frost Stone"},
+    [204013] = {Family = "Frost", Name = "Exuding Steam Stone"},
+    [204014] = {Family = "Frost", Name = "Sparkling Mana Stone"},
+
+    [204000] = {Family = "Nature", Name = "Storm Infused Stone"},
+    [204001] = {Family = "Nature", Name = "Echoing Thunder Stone"},
+    [204020] = {Family = "Nature", Name = "Wild Spirit Stone"},
+    [204022] = {Family = "Nature", Name = "Pestilent Plague Stone"},
+    [204030] = {Family = "Nature", Name = "Wind Sculpted Stone"},
+
+    [204021] = {Family = "Necromantic", Name = "Necromantic Death Stone"},
+    [204027] = {Family = "Necromantic", Name = "Desirous Blood Stone"},
+
+    [204015] = {Family = "Shadow", Name = "Swirling Mojo Stone"},
+    [204029] = {Family = "Shadow", Name = "Prophetic Twilight Stone"},
+}
+
 AZP.ToolTips.Currencies =
 {
-                 Valor = string.format("%s%d%s", StartString,  463447, EndString),  -- 1191
-                 Honor = string.format("%s%d%s", StartString, 1455894, EndString),
+    Valor = string.format("%s%d%s", StartString,  463447, EndString),  -- 1191
+    Honor = string.format("%s%d%s", StartString, 1455894, EndString),
+}
+
+AZP.ToolTips.WeapConquestCostList =
+{
+    [201974] = 900,     -- 1h Warglaives, 900 Conquest ??
 }
 
 AZP.ToolTips.WeapValorCostList =

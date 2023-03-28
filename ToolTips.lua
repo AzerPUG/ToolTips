@@ -12,9 +12,7 @@ local AZPTTSelfOptionPanel = nil
 local FoundMissingYet = false
 
 function AZP.ToolTips:OnLoadBoth()
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(...) AZP.ToolTips:SearchGenericUpgradeableItem() end)
-
-    ITEM_CREATED_BY= ""
+    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(...) AZP.ToolTips:IsPrimordialStone() end)
 end
 
 function AZP.ToolTips:OnLoadCore()
@@ -130,7 +128,55 @@ function AZP.ToolTips:FillOptionsPanel(frameToFill)
     frameToFill.CBracketEdit:SetFontObject("ChatFontNormal")
     frameToFill.CBracketEdit:SetMaxLetters(100)
 
+    frameToFill.hideCreatedByBox = CreateFrame("CheckButton", nil, frameToFill, "ChatConfigCheckButtonTemplate")
+    frameToFill.hideCreatedByBox:SetPoint("TOPLEFT", 0, -400)
+    frameToFill.hideCreatedByBox:SetScript("OnClick", function()
+        AZPTTHideCreatedBy = frameToFill.hideCreatedByBox:GetChecked()
+    end)
+    frameToFill.hideCreatedByBox:SetScript("OnShow", function()
+        frameToFill.hideCreatedByBox:SetChecked(AZPTTHideCreatedBy)
+    end)
+    frameToFill.hideCreatedByBox:SetScript("OnClick", function() if AZPTTHideCreatedBy == true then AZPTTHideCreatedBy = false elseif AZPTTHideCreatedBy == false then AZPTTHideCreatedBy = true end end)
+
+    frameToFill.hideCreatedByText = frameToFill:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    frameToFill.hideCreatedByText:SetSize(100, 25)
+    frameToFill.hideCreatedByText:SetPoint("TOPLEFT", 0, -400)
+    frameToFill.hideCreatedByText:SetText("Hide \"Created By:\"")
+    -- frameToFill.hideCreatedByText:SetFrameStrata("DIALOG")
+    frameToFill.hideCreatedByText:SetFontObject("ChatFontNormal")
+    -- frameToFill.hideCreatedByText:SetMaxLetters(100)
+
+    if AZPTTHideCreatedBy == true then
+        ITEM_CREATED_BY= ""
+    end
+
     frameToFill:Hide()
+end
+
+function AZP.ToolTips:IsPrimordialStone()
+    local _, itemLink = GameTooltip:GetItem()
+    local itemID = GetItemInfoInstant(itemLink)
+    if AZP.ToolTips.PrimalStones[itemID] == nil then
+        AZP.ToolTips:SearchGenericUpgradeableItem()
+    else
+        AZP.ToolTips:PrimordialStonesText()
+    end
+end
+
+function AZP.ToolTips:PrimordialStonesText()
+    local _, itemLink = GameTooltip:GetItem()
+    local itemID = GetItemInfoInstant(itemLink)
+    local ttname = GameTooltip:GetName()
+    for i = 1, GameTooltip:NumLines() do
+        local left = _G[ttname .. "TextLeft" .. i]
+        local text = left:GetText()
+        if text:find("Primordial Stone") then text = string.format("%s (%s)", text, AZP.ToolTips.PrimalStones[itemID].Family) end
+        -- if text:find("Item Level 411") then text = string.format("%s (1/3)", text)
+        -- elseif text:find("Item Level 418") then text = string.format("%s (2/3)", text)
+        -- elseif text:find("Item Level 424") then text = string.format("%s (3/3)", text)
+        -- end
+        left:SetText(text)
+    end
 end
 
 function AZP.ToolTips:SearchGenericUpgradeableItem()
