@@ -27,7 +27,7 @@ end
 
 function AZP.ToolTips:OnLoadSelf()
     C_ChatInfo.RegisterAddonMessagePrefix("AZPVERSIONS")
-
+    
     EventFrame = CreateFrame("FRAME", nil)
     EventFrame:RegisterEvent("CHAT_MSG_ADDON")
     EventFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
@@ -155,6 +155,8 @@ end
 
 function AZP.ToolTips:IsPrimordialStone()
     local _, itemLink = GameTooltip:GetItem()
+    if itemLink == nil then return end
+
     local itemID = GetItemInfoInstant(itemLink)
     if AZP.ToolTips.PrimalStones[itemID] == nil then
         AZP.ToolTips:SearchGenericUpgradeableItem()
