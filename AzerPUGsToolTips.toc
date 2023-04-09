@@ -1,4 +1,4 @@
-## Interface: 100000
+## Interface: 100007
 ## Title: |cFF00FFFFAzerPUG's|r |cFFFF00FFToolTips|r
 ## Author: Tex & AzerPUG Gaming Community (www.azerpug.com/discord)
 ## OptionalDeps: AzerPUGsCore
